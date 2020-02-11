@@ -15,18 +15,23 @@ class GameManager {
 
 private:
 	Terrain terrain(int hauteur, int largeur);
-	Joueur joueur_un;		// Passer en argument les coord de depart??
-	Joueur joueur_deux;		// Passer en argument les coord de depart??
+	Joueur *joueur_un;			// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
+	Joueur *joueur_deux;		// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	UI ui;
+	int tour[]= {1,2}
 	
 public:
 	GameManager();
 	~GameManager();
-	void changer_tour();
+	void changer_tour();	//refresh le nombre de pts de deplacement du joueur actif
 	void refresh_frame();	//Afficher le UI avec les donnees a jour
 	
+	
 	//Methodes lies a la gestion d evenements:
-
+	void deplacer_joueur();
+	void tirer();			//Va probablement appeler set_angle et set_puissance de maniere consecutive
+	void set_angle();
+	void set_puissance();
 
 
 };
