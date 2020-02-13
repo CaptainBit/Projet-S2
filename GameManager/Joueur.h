@@ -6,18 +6,14 @@
 #ifndef PROJET_JOUEUR_H
 #define PROJET_JOUEUR_H
 #include "..\Projectile\Projectile.h"
-#include "..\Coord.h"
+#include "../Vec2.h"
 #define POINTS_DEPLACEMENT=10;
 #define VIE_MAX = 100; 
 
-struct Coord{
-	int x;
-	int y;
-};
 class Joueur {
 private:
 	int vie;
-	Coord position;
+	Vec2 position;
 	int typeProjectile;
 	int pointsDeplacement;
 public:

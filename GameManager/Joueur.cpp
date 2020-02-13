@@ -63,8 +63,8 @@ bool Joueur::endomager(int degat)
 	return (vie > 0);
 }
 
-Projectile Joueur::tirer(float force, float angle)
+Projectile Joueur::tirer(float angle, float force)
 {
-	Projectile projectile(force, angle); 
+	Projectile projectile(angle, force);
 	return projectile; 
 }
