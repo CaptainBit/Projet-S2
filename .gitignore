@@ -417,3 +417,5 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .idea/*
+/CMakeLists.txt
+/cmake-build-debug/
