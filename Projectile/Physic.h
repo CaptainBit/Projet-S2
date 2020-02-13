@@ -21,7 +21,7 @@ public:
     Vec2 displacement(float t){
         float x = (initialVelocity * t * cos(angle)) + initialCoord.x;
         float y = (initialVelocity * t * sin(angle)) - (0.5 * t * t * G)  + initialCoord.y;
-        return Vec2(x,y);
+        return Vec2((int)x,(int)y);
     }
 
 private:
