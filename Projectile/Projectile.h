@@ -13,11 +13,11 @@ private:
 	Parabole trajectoire;
 	int degat;
 public:
-	Projectile(float force,float angle);
+	Projectile(Vec2 position,float force,float angle);
 	Parabole getTrajectoire();
 	int getDegat();
 	void setParabole(Parabole trajectoire);
-	void setDegat();
+	void setDegat(int degat);
 };
 
 
