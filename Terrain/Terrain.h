@@ -5,11 +5,14 @@
 #ifndef PROJET_TERRAIN_H
 #define PROJET_TERRAIN_H
 
-#include "../Coord.h"
+#include "../Vec2.h"
 
 class Terrain {
 public:
-    Terrain(Coord dimension);
+    Terrain(Vec2 p_dimension);
+private:
+    Vec2 dimension;
+
 };
 
 

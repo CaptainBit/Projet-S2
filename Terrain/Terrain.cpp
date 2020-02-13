@@ -3,3 +3,7 @@
 //
 
 #include "Terrain.h"
+
+Terrain::Terrain(Vec2 p_dimension) {
+    dimension = p_dimension;
+}
