@@ -55,7 +55,12 @@ void GameManager::start_game()
 void GameManager::en_jeux(char choice)
 {
 	if(choice == 'a') joueur_actif->deplacer(-1);
-	if(choice == 'a') joueur_actif->deplacer(1);
+	if(choice == 'd') joueur_actif->deplacer(1);
+	if(choice == 'w') setAngle(1);
+	if(choice == 's') setAngle(-1);
+	if(choice == 'u') setPuissance(-1);
+	if(choice == 'i') setPuissance(1);
+	if(choice == 'f') tirer();
 }
 
 void GameManager::end_game()
@@ -81,15 +86,16 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 		if(!joueur_cible->endomager(degat)) end_game();
 	}
 	//AFFICHER NOUVEAU HUD avec la vie update du joueur
+	changer_tour();
 		
 }
 void GameManager::setAngle(float angle)
 {
-	angle_tire = angle;
+	angle_tire += angle;
 }
 void GameManager::setPuissance(float force)
 {
-	force_tire = force;
+	force_tire += force;
 }
 float GameManager::getAngle()
 {
