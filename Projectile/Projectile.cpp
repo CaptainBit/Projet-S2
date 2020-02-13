@@ -3,7 +3,7 @@
 //
 
 #include "Projectile.h"
-Projectile::Projectile(Coord position, float force, float angle) {
+Projectile::Projectile(Vec2 position, float angle, float force) {
 	trajectoire(postion, angle, force);
 }
 Parabole Projectile::getTrajectoire() {
