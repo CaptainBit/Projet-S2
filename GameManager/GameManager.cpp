@@ -48,7 +48,10 @@ void GameManager::refresh_frame()	//Afficher le UI avec les donnees a jour
 	//Methodes lies a la gestion d evenements:
 void GameManager::deplacer_joueur()
 {
-	
+
+    
+
+    refresh_frame();
 }
 void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance de maniere consecutive
 {

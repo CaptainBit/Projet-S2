@@ -33,7 +33,7 @@ public:
 	void tirer();			//Va probablement appeler set_angle et set_puissance de maniere consecutive
 	void set_angle();
 	void set_puissance();
-
+	void end_game();
 
 };
 
