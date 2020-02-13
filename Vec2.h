@@ -4,11 +4,11 @@
 
 #ifndef PROJET_COORD_H
 #define PROJET_COORD_H
-struct Coord{
-    float x;
-    float y;
+struct Vec2{
+    int x;
+    int y;
 
-    Coord(float p_x = 0.0f, float p_y = 0.0f){
+    Coord(int p_x = 0.0f, int p_y = 0.0f){
         x = p_x;
         y = p_y;
     }
