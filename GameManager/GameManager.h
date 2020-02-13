@@ -6,10 +6,12 @@
 #define PROJET_GAMEMANAGER_H
 
 #include "UI.h"
-#include "traitementPhysic.h"
-#include "traitementProjectile.h"
-#include "traitementJoueur.h"
-#include "traitementTerrain.h"
+#include "../Projectile/Physic.h"
+#include "../Projectile/Projectile.h"
+#include "Joueur.h"
+#include "../Terrain/Terrain.h"
+
+#define DEFAULT_SIZE Vec2(10,10)
 
 class GameManager {
 
@@ -33,6 +35,8 @@ public:
 	void tirer();			//Va probablement appeler set_angle et set_puissance de maniere consecutive
 	void set_angle();
 	void set_puissance();
+
+	void start_game();
 	void end_game();
 
 };
