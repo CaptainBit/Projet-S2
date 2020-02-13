@@ -6,21 +6,24 @@
 
 
 GameManager::GameManager()
-{// pour un array de 10X10
-	terrain = new Terrain(DEFAULT_SIZE);
+{
+	//terrain = new Terrain(DEFAULT_SIZE);
     joueur_un = new Joueur();
     joueur_deux = new Joueur();
     joueur_actif = joueur_un;
 	joueur_cible = joueur_deux;
     
 }
-
+/*
 GameManager::GameManager(int hauteur, int largeur)
 {
 	terrain = new Terrain(Vec2(hauteur,largeur));
     joueur_un = new Joueur();
     joueur_deux = new Joueur();
-}
+    joueur_actif = joueur_un;
+	joueur_cible = joueur_deux;
+}*/
+
 GameManager::~GameManager()
 {
 	delete joueur_un;
@@ -85,6 +88,7 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 		int degat = boum.getDegat();
 		if(!joueur_cible->endomager(degat)) end_game();
 	}
+	//AFFICHER UNE EXPLOSION AU SOL SI PAS TOUCHE CIBLE
 	//AFFICHER NOUVEAU HUD avec la vie update du joueur
 	changer_tour();
 		

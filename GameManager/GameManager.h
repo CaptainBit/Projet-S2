@@ -11,12 +11,12 @@
 #include "Joueur.h"
 #include "../Terrain/Terrain.h"
 
-#define DEFAULT_SIZE Vec2(10,10)
+#define DEFAULT_SIZE Vec2(93,1)
 
 class GameManager {
 
 private:
-	Terrain *terrain;
+	//Terrain *terrain;
 	Joueur *joueur_un;			// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	Joueur *joueur_deux;		// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	UI ui;
