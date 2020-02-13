@@ -8,7 +8,7 @@ struct Vec2{
     int x;
     int y;
 
-    Coord(int p_x = 0.0f, int p_y = 0.0f){
+    Vec2(int p_x = 0.0f, int p_y = 0.0f){
         x = p_x;
         y = p_y;
     }
