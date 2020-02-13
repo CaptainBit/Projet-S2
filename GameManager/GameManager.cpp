@@ -33,10 +33,10 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 {
 	tour = !tour;
 	if(tour){
-		joueur_un->mvt = 3;			//A modifier en fonction de l implementation de la class joueur
+		joueur_un->mvt = 5;			//A modifier en fonction de l implementation de la class joueur
 	}
 	else{
-		joueur_deux->mvt = 3;			//A modifier en fonction de l implementation de la class joueur
+		joueur_deux->mvt = 5;			//A modifier en fonction de l implementation de la class joueur
 	}
 }
 void GameManager::refresh_frame()	//Afficher le UI avec les donnees a jour
