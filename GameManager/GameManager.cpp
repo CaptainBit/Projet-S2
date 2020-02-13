@@ -8,9 +8,11 @@
 GameManager::GameManager()
 {// pour un array de 10X10
 	terrain = new Terrain(DEFAULT_SIZE);
-
     joueur_un = new Joueur();
     joueur_deux = new Joueur();
+    joueur_actif = joueur_un;
+	joueur_cible = joueur_deux;
+    
 }
 
 GameManager::GameManager(int hauteur, int largeur)
@@ -27,44 +29,74 @@ GameManager::~GameManager()
 }
 void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du joueur actif
 {
+	//reset angle & force
+	if(tour)
+	{
+		joueur_actif = joueur_un;
+		joueur_cible = joueur_deux;
+	}
+	else
+	{
+		joueur_actif = joueur_deux;
+		joueur_cible = joueur_un;
+	}
+	
+	joueur_actif->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
 	tour = !tour;
-	if(tour){
-		joueur_un->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
-	}
-	else{
-		joueur_deux->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
-	}
-}
-void GameManager::refresh_frame()	//Afficher le UI avec les donnees a jour
-{
-	//ui.afficher();
 }
 
 void GameManager::start_game()
 {
-	
+	//START GUI (avec un beau ti tank en ascii de ALEX)
+	//Initier tous les GUI avec valeurs de depart
+	//etablir position initialle des joueurs
+}
+
+void GameManager::en_jeux(char choice)
+{
+	if(choice == 'a') joueur_actif->deplacer(-1);
+	if(choice == 'a') joueur_actif->deplacer(1);
 }
 
 void GameManager::end_game()
 {
-	
+	//ui de fin de jeu
+	inGame = false;
 }
 	
 	
 	//Methodes lies a la gestion d evenements:
-void GameManager::deplacer_joueur()
-{
-	refresh_frame();
-}
+
 void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance de maniere consecutive
 {
+	//Gerer les fonctions tirer des joueurs
 	
+	Projectile boum = joueur_actif->tirer(angle_tire, force_tire);
+	int position_cible = joueur_cible->getPosition().y;
+	int posiion_impact = boum.getTrajectoire().getY(joueur_cible->getPosition()).x;
+	int buffer_cible = 2;
+	// APPELER AFFICHER EXPLOSITON
+	if(position_cible-buffer_cible <= position_impact && position_cible+buffer_cible >= position_impact){
+		int degat = boum.getDegat();
+		if(!joueur_cible->endomager(degat)) end_game();
+	}
+	//AFFICHER NOUVEAU HUD avec la vie update du joueur
+		
 }
-void GameManager::set_angle()
+void GameManager::setAngle(float angle)
 {
-	
+	angle_tire = angle;
 }
-void GameManager::set_puissance()
+void GameManager::setPuissance(float force)
 {
-	
+	force_tire = force;
 }
+float GameManager::getAngle()
+{
+	return angle_tire;
+}
+float GameManager::getPuissance()
+{
+	return force_tire;
+}
+
