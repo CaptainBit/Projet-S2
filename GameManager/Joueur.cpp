@@ -1,20 +1,20 @@
 //
 // Created by fiset on 2020-02-11.
 //
-
-
 #include "Joueur.h"
+
 Joueur::Joueur()
 {
-	vie = VIE_MAX;
+    vie = VIE_MAX;
 	pointsDeplacement = POINTS_DEPLACEMENT; 
 }
+
 int Joueur::getVie()
 {
 	return vie;
 }
 
-Coord Joueur::getPosition()
+Vec2 Joueur::getPosition()
 {
 	return position;
 }
@@ -26,7 +26,7 @@ int Joueur::getTypePrjectile()
 
 int Joueur::getPointsDeplacement()
 {
-	return pointsDeplacement
+	return pointsDeplacement;
 }
 
 void Joueur::setVie(int vie)
@@ -34,7 +34,7 @@ void Joueur::setVie(int vie)
 	this->vie = vie; 
 }
 
-void Joueur::setPosition(Coord position)
+void Joueur::setPosition(Vec2 position)
 {
 	this->position.x = position.x;
 	this->position.y = position.y;
@@ -65,6 +65,6 @@ bool Joueur::endomager(int degat)
 
 Projectile Joueur::tirer(float angle, float force)
 {
-	Projectile projectile(angle, force);
+	Projectile projectile(position,angle, force);
 	return projectile; 
 }

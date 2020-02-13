@@ -4,8 +4,11 @@
 
 #ifndef PROJET_PROJECTILE_H
 #define PROJET_PROJECTILE_H
-#include "Physic.h"
+
+#include "../Projectile/Physic.h"
 #include "../Projectile/Projectile.h"
+#include "../Vec2.h"
+
 #define DEGAT_DEFAULT=10;
 
 class Projectile {

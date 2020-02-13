@@ -7,8 +7,9 @@
 #define PROJET_JOUEUR_H
 #include "..\Projectile\Projectile.h"
 #include "../Vec2.h"
-#define POINTS_DEPLACEMENT=10;
-#define VIE_MAX = 100; 
+
+#define POINTS_DEPLACEMENT 10
+#define VIE_MAX  100
 
 class Joueur {
 private:
@@ -19,11 +20,11 @@ private:
 public:
 	Joueur();
 	int getVie();
-	Coord getPosition();
+	Vec2 getPosition();
 	int getTypePrjectile();
 	int getPointsDeplacement();
 	void setVie(int vie);
-	void setPosition(Coord position);
+	void setPosition(Vec2 position);
 	void setTypeProjectile(int type);
 	void setPointsDeplacement(int points);
 

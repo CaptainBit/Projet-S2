@@ -12,6 +12,12 @@
 
 class Parabole{
 public:
+    Parabole(){
+        initialVelocity = 0;
+        angle = 0;
+        initialCoord = Vec2(0,0);
+    }
+
     Parabole(Vec2 p_coord, float p_angle, float p_force){
         initialVelocity = p_force;
         angle = p_angle * (M_PI/180);
