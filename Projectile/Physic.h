@@ -30,6 +30,11 @@ public:
         return Vec2((int)x,(int)y);
     }
 
+    int getY(int x){
+        float t = (x - initialCoord.x)/(initialVelocity*cos(angle));
+        return (initialVelocity * t * sin(angle)) - (0.5 * t * t * G)  + initialCoord.y;
+    }
+
 private:
     float initialVelocity;
     float angle;
