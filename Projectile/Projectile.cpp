@@ -3,18 +3,18 @@
 //
 
 #include "Projectile.h"
-Projectile::Projectile(float force, float angle) {
-	
+Projectile::Projectile(Coord position, float force, float angle) {
+	trajectoire(postion, angle, force);
 }
 Parabole Projectile::getTrajectoire() {
-
+	return trajectoire;
 }
 int Projectile::getDegat() {
-
+	return degat;
 }
 void Projectile::setParabole(Parabole trajectoire) {
-
+	this->getTrajectoire = trajectoire;
 }
-void Projectile::setDegat() {
-
+void Projectile::setDegat(int degat) {
+	this->degat = degat;
 }
