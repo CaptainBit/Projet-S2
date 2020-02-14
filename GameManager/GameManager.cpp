@@ -28,7 +28,6 @@ GameManager::~GameManager()
 {
 	delete joueur_un;
 	delete joueur_deux;
-	delete terrain;
 }
 void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du joueur actif
 {
@@ -81,7 +80,7 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	
 	Projectile boum = joueur_actif->tirer(angle_tire, force_tire);
 	int position_cible = joueur_cible->getPosition().y;
-	int posiion_impact = boum.getTrajectoire().getY(joueur_cible->getPosition()).x;
+	int position_impact = boum.getTrajectoire().getY(joueur_cible->getPosition().x);
 	int buffer_cible = 2;
 	// APPELER AFFICHER EXPLOSITON
 	if(position_cible-buffer_cible <= position_impact && position_cible+buffer_cible >= position_impact){

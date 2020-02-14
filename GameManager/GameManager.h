@@ -5,7 +5,7 @@
 #ifndef PROJET_GAMEMANAGER_H
 #define PROJET_GAMEMANAGER_H
 
-#include "UI.h"
+//#include "UI.h"
 #include "../Projectile/Physic.h"
 #include "../Projectile/Projectile.h"
 #include "Joueur.h"
@@ -19,7 +19,7 @@ private:
 	//Terrain *terrain;
 	Joueur *joueur_un;			// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	Joueur *joueur_deux;		// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
-	UI ui;
+	//UI ui;
 
 	float angle_tire = 0;
 	float force_tire = 0;
@@ -43,6 +43,7 @@ public:
 	float getPuissance();
 
 	void start_game();
+	void en_jeux(char choice);
 	void end_game();
 
 };
