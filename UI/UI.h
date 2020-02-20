@@ -3,6 +3,7 @@
 //
 
 #include "../GameManager/Joueur.h"
+#include "../Projectile/Projectile.h"
 #ifndef PROJET_UI_H
 #define PROJET_UI_H
 
@@ -14,7 +15,7 @@ public:
 	void initialiserEcran(int x,int y);
 	void afficherHUD(Joueur j1, Joueur j2);
 	void afficherJoueur(Joueur j1, Joueur j2);
-
+	void afficherProjectile(Projectile p)
 };
 
 

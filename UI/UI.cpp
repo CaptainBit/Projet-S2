@@ -170,3 +170,9 @@ void UI::afficherJoueur(Joueur j1, Joueur j2) {
 
 
 }
+
+void UI::afficherProjectile(Projectile p)
+{
+	setXY(offsetX + 1 + p.getTrajectoire().getX(0), offsetY + 19);
+	cout << CaractereSymboleHomme;
+}
