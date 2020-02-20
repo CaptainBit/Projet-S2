@@ -39,20 +39,46 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 
 void GameManager::start_game()
 {
-	//START GUI (avec un beau ti tank en ascii de ALEX)
-	//Initier tous les GUI avec valeurs de depart
-	//etablir position initialle des joueurs
+	joueur_un->setPosition({0,0}));
+	joueur_deux->setPosition({79,0});
+	ui.initializerEcran(93,20);
+	ui.afficherHUD(joueur_un,joueur_deux);
+	ui.afficherJoueur(joueur_un, joueur_deux);
 }
 
 void GameManager::en_jeux(char choice)
 {
-	if(choice == 'a') joueur_actif->deplacer(-1);
-	if(choice == 'd') joueur_actif->deplacer(1);
-	if(choice == 'w') setAngle(1);
-	if(choice == 's') setAngle(-1);
-	if(choice == 'u') setPuissance(-1);
-	if(choice == 'i') setPuissance(1);
-	if(choice == 'f') tirer();
+	switch (choice)
+	{
+	case 'a': joueur_actif->deplacer(-1);
+		ui.afficherJoueur(joueur_un, joueur_deux);
+		break;
+	case 'd':
+		joueur_actif->deplacer(1);
+		ui.afficherJoueur(joueur_un, joueur_deux);
+		break;
+	case 'w':
+		joueur_actif->setAngle(1);
+		ui.afficherHUD(joueur_un, joueur_deux);
+		break;
+	case 's':
+		joueur_actif->setAngle(-1);
+		ui.afficherHUD(joueur_un, joueur_deux);
+		break;
+	case 'u':
+		joueur_actif->setPuissance(-1);
+		ui.afficherHUD(joueur_un, joueur_deux);
+		break;
+	case 'i':
+		joueur_actif->sePuissance(1);
+		ui.afficherHUD(joueur_un, joueur_deux);
+		break;
+	case 'f':
+		joueur_actif->tirer();
+		break;
+	default:
+		break;
+	}
 }
 
 void GameManager::end_game()
@@ -75,7 +101,8 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	// APPELER AFFICHER EXPLOSITON
 	if(position_cible-buffer_cible <= position_impact && position_cible+buffer_cible >= position_impact){
 		int degat = boum.getDegat();
-		if(!joueur_cible->endomager(degat)) end_game();
+		if(!joueur_cible->endomager(degat))
+			end_game();
 	}
 	//AFFICHER UNE EXPLOSION AU SOL SI PAS TOUCHE CIBLE
 	//AFFICHER NOUVEAU HUD avec la vie update du joueur
@@ -97,5 +124,8 @@ float GameManager::getAngle()
 float GameManager::getPuissance()
 {
 	return force_tire;
+}
+bool GameManager::getStatus() {
+	return inGame;
 }
 

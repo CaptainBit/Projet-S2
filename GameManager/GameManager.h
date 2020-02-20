@@ -10,6 +10,7 @@
 #include "../Projectile/Projectile.h"
 #include "Joueur.h"
 #include "../Terrain/Terrain.h"
+#include "../UI/UI.h"
 
 #define DEFAULT_SIZE Vec2(93,1)
 
@@ -27,10 +28,10 @@ private:
 	bool tour = true;
 	Joueur *joueur_actif;
 	Joueur *joueur_cible;
+	UI ui;
 	
 public:
 	GameManager();
-	GameManager(int hauteur, int largeur);
 	~GameManager();
 	void changer_tour();	//refresh le nombre de pts de deplacement du joueur actif
 	
@@ -45,6 +46,7 @@ public:
 	void start_game();
 	void en_jeux(char choice);
 	void end_game();
+	bool getStatus();
 
 };
 
