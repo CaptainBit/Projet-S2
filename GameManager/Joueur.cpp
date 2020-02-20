@@ -77,11 +77,7 @@ Projectile Joueur::tirer(float angle, float force)
 	return projectile; 
 }
 int Joueur::getAngle() {
-<<<<<<< Updated upstream
-return angle
-=======
 	return angle;
->>>>>>> Stashed changes
 }
 int Joueur::getPuissance() {
 	return puissance;
