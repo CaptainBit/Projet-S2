@@ -6,6 +6,7 @@
 
 Projectile::Projectile(Vec2 position, float angle, float force) {
 	trajectoire = Parabole(position, angle, force);
+	degat = DEGAT_DEFAULT;
 }
 Parabole Projectile::getTrajectoire() {
 	return trajectoire;

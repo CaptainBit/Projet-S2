@@ -44,6 +44,10 @@ void GameManager::start_game()
 	ui.initialiserEcran(93, 20);
 	ui.afficherHUD(*joueur_un, *joueur_deux);
 	ui.afficherJoueur(*joueur_un, *joueur_deux);
+<<<<<<< Updated upstream
+=======
+	changer_tour();
+>>>>>>> Stashed changes
 }
 
 void GameManager::en_jeux(char choice)
@@ -62,6 +66,7 @@ void GameManager::en_jeux(char choice)
 		}
 		break;
 	case 'w':
+<<<<<<< Updated upstream
 		joueur_actif->setAngle(getAngle() + 1);
 		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
@@ -75,10 +80,29 @@ void GameManager::en_jeux(char choice)
 		break;
 	case 'i':
 		joueur_actif->setPuissance(getPuissance()-1);
+=======
+		joueur_actif->setAngle(joueur_actif->getAngle() + 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 's':
+		joueur_actif->setAngle(joueur_actif->getAngle() - 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 'u':
+		joueur_actif->setPuissance(joueur_actif->getPuissance() - 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 'i':
+		joueur_actif->setPuissance(joueur_actif->getPuissance()+1);
+>>>>>>> Stashed changes
 		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'f':
 		tirer();
+<<<<<<< Updated upstream
+=======
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+>>>>>>> Stashed changes
 		break;
 	default:
 		break;
@@ -98,11 +122,25 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 {
 	//Gerer les fonctions tirer des joueurs
 	
+<<<<<<< Updated upstream
 	Projectile boum = joueur_actif->tirer(angle_tire, force_tire);
 	int position_cible = joueur_cible->getPosition().y;
 	int position_impact = boum.getTrajectoire().getY(joueur_cible->getPosition().x);
 	int buffer_cible = 2;
 	// APPELER AFFICHER EXPLOSITON
+=======
+	Projectile boum = joueur_actif->tirer(joueur_actif->getAngle(), joueur_actif->getPuissance());
+	int position_cible = joueur_cible->getPosition().x;
+	
+	int buffer_cible = 10;
+	// APPELER AFFICHER EXPLOSITON
+	int sens;
+	if (tour)
+		sens = -1;
+	else sens= 1;
+	int position_impact = joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0);
+	ui.afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
+>>>>>>> Stashed changes
 	if(position_cible-buffer_cible <= position_impact && position_cible+buffer_cible >= position_impact){
 		int degat = boum.getDegat();
 		if(!joueur_cible->endomager(degat))

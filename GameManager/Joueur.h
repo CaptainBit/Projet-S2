@@ -10,7 +10,7 @@
 #include <cstdlib>
 
 #define POINTS_DEPLACEMENT 10
-#define VIE_MAX  100
+#define VIE_MAX  20
 
 class Joueur {
 private:
