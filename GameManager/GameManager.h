@@ -22,10 +22,8 @@ private:
 	Joueur *joueur_deux;		// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	//UI ui;
 
-	float angle_tire = 0;
-	float force_tire = 0;
 	bool inGame = true;
-	bool tour = true;
+	bool tour = false;
 	Joueur *joueur_actif;
 	Joueur *joueur_cible;
 	UI ui;
@@ -38,10 +36,7 @@ public:
 	
 	//Methodes lies a la gestion d evenements:
 	void tirer();			//Va probablement appeler getAngle et getPuissance de maniere consecutive
-	void setAngle(float angle_tire);
-	void setPuissance(float force_tire);
-	float getAngle();
-	float getPuissance();
+
 
 	void start_game();
 	void en_jeux(char choice);

@@ -7,6 +7,8 @@ Joueur::Joueur()
 {
     vie = VIE_MAX;
 	pointsDeplacement = POINTS_DEPLACEMENT; 
+	puissance = 50;
+	angle = 45;
 }
 
 int Joueur::getVie()
@@ -73,4 +75,16 @@ Projectile Joueur::tirer(float angle, float force)
 {
 	Projectile projectile(position,angle, force);
 	return projectile; 
+}
+int Joueur::getAngle() {
+return angle
+}
+int Joueur::getPuissance() {
+	return puissance;
+}
+void Joueur::setPuissance(int puissance) {
+	this->puissance = puissance;
+}
+void Joueur::setAngle(int angle) {
+	this->angle = angle;
 }

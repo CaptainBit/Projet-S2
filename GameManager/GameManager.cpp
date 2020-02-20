@@ -39,42 +39,46 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 
 void GameManager::start_game()
 {
-	joueur_un->setPosition({0,0}));
-	joueur_deux->setPosition({79,0});
-	ui.initializerEcran(93,20);
-	ui.afficherHUD(joueur_un,joueur_deux);
-	ui.afficherJoueur(joueur_un, joueur_deux);
+	joueur_un->setPosition({ 0,0 });
+	joueur_deux->setPosition({ 79,0 });
+	ui.initialiserEcran(93, 20);
+	ui.afficherHUD(*joueur_un, *joueur_deux);
+	ui.afficherJoueur(*joueur_un, *joueur_deux);
 }
 
 void GameManager::en_jeux(char choice)
 {
 	switch (choice)
 	{
-	case 'a': joueur_actif->deplacer(-1);
-		ui.afficherJoueur(joueur_un, joueur_deux);
-		break;
+	case 'a': if (joueur_actif->deplacer(-1)) {
+		ui.afficherJoueur(*joueur_un, *joueur_deux);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+	}
+			  break;
 	case 'd':
-		joueur_actif->deplacer(1);
-		ui.afficherJoueur(joueur_un, joueur_deux);
+		if (joueur_actif->deplacer(1)) {
+			ui.afficherJoueur(*joueur_un, *joueur_deux);
+			ui.afficherHUD(*joueur_un, *joueur_deux);
+		}
 		break;
 	case 'w':
-		joueur_actif->setAngle(1);
-		ui.afficherHUD(joueur_un, joueur_deux);
+		joueur_actif->setAngle(getAngle() + 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 's':
-		joueur_actif->setAngle(-1);
-		ui.afficherHUD(joueur_un, joueur_deux);
+		joueur_actif->setAngle(getAngle() - 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'u':
-		joueur_actif->setPuissance(-1);
-		ui.afficherHUD(joueur_un, joueur_deux);
+		joueur_actif->setPuissance(getPuissance() + 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'i':
-		joueur_actif->sePuissance(1);
-		ui.afficherHUD(joueur_un, joueur_deux);
+		joueur_actif->setPuissance(getPuissance()-1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'f':
-		joueur_actif->tirer();
+		tirer();
 		break;
 	default:
 		break;
@@ -108,22 +112,6 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	//AFFICHER NOUVEAU HUD avec la vie update du joueur
 	changer_tour();
 		
-}
-void GameManager::setAngle(float angle)
-{
-	angle_tire += angle;
-}
-void GameManager::setPuissance(float force)
-{
-	force_tire += force;
-}
-float GameManager::getAngle()
-{
-	return angle_tire;
-}
-float GameManager::getPuissance()
-{
-	return force_tire;
 }
 bool GameManager::getStatus() {
 	return inGame;
