@@ -7,22 +7,12 @@
 
 GameManager::GameManager()
 {
-	//terrain = new Terrain(DEFAULT_SIZE);
     joueur_un = new Joueur();
     joueur_deux = new Joueur();
     joueur_actif = joueur_un;
 	joueur_cible = joueur_deux;
-    
 }
-/*
-GameManager::GameManager(int hauteur, int largeur)
-{
-	terrain = new Terrain(Vec2(hauteur,largeur));
-    joueur_un = new Joueur();
-    joueur_deux = new Joueur();
-    joueur_actif = joueur_un;
-	joueur_cible = joueur_deux;
-}*/
+
 
 GameManager::~GameManager()
 {

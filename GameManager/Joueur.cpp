@@ -56,7 +56,9 @@ bool Joueur::deplacer(int deplacement)
 	if (pointsDeplacement + abs(deplacement) >= 0) {
 		pointsDeplacement += deplacement;
 		position.x += deplacement;
+		return 1;
 	}
+	return 0;
 }
 
 //Enleve le nombre de point de degat a la vie. Retourne si le tank est toujours en vie. 
