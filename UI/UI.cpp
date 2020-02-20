@@ -27,6 +27,8 @@ void UI::initialiserEcran(int x, int y) {
 	cout << "MOUVEMENT";
 	setXY(offsetX + 2, offsetY + 7);
 	cout << "ANGLE";
+	setXY(offsetX + 2, offsetY + 9);
+	cout << "PUISSANCE";
 
 	//Affichage joueur 2
 	setXY(offsetX + 83, offsetY + 2);
@@ -37,6 +39,8 @@ void UI::initialiserEcran(int x, int y) {
 	cout << "MOUVEMENT";
 	setXY(offsetX + 83, offsetY + 7);
 	cout << "ANGLE";
+	setXY(offsetX + 83, offsetY + 9);
+	cout << "PUISSANCE";
 }
 
 void UI::afficherHUD(Joueur j1, Joueur j2) {
@@ -97,16 +101,31 @@ void UI::afficherHUD(Joueur j1, Joueur j2) {
 		cout << " ";
 	}
 
-	//Affichage de l'angle joueur 2
+	//Affichage de l'angle joueur 1
 	setTextBackgroundColor(GRIS_CLAIR, NOIR);
 	setXY(offsetX + 12, offsetY + 7);
-	cout << "35deg";
+	cout << j1.getAngle() <<" deg";
+	if (j1.getAngle() < 10)
+		cout << " " ;
+	//Affichage de l'angle joueur 2
+	setXY(offsetX + 75,offsetY+7);
+	cout << j2.getAngle()<<" deg";
+	if (j2.getAngle() < 10)
+		cout << " ";
 
-	//Affichage de l'angle joueur 1
-	setXY(offsetX + 76,offsetY+7);
-	cout << "45deg";
+	//Affichage de la puissance joueur 1
+	setTextBackgroundColor(GRIS_CLAIR, NOIR);
+	setXY(offsetX + 12, offsetY + 9);
+	cout << j1.getPuissance() << " ";
+	if (j1.getPuissance() < 10)
+		cout << " ";
 
-
+	//Affichage de la puissance joueur 2
+	setTextBackgroundColor(GRIS_CLAIR, NOIR);
+	setXY(offsetX + 75, offsetY + 9);
+	cout << j2.getPuissance() << " ";
+	if (j2.getPuissance() < 10)
+		cout << " ";
 }
 
 
