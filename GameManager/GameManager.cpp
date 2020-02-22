@@ -34,6 +34,7 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 	}
 	
 	joueur_actif->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
+	ui.afficherTour(joueur_actif);
 	tour = !tour;
 }
 
@@ -54,12 +55,14 @@ void GameManager::en_jeux(char choice)
 	case 'a': if (joueur_actif->deplacer(-1)) {
 		ui.afficherJoueur(*joueur_un, *joueur_deux);
 		ui.afficherHUD(*joueur_un, *joueur_deux);
+		ui.afficherTour(joueur_actif);
 	}
 			  break;
 	case 'd':
 		if (joueur_actif->deplacer(1)) {
 			ui.afficherJoueur(*joueur_un, *joueur_deux);
 			ui.afficherHUD(*joueur_un, *joueur_deux);
+			ui.afficherTour(joueur_actif);
 		}
 		break;
 	case 'w':

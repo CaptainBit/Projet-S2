@@ -23,7 +23,7 @@ private:
 	//UI ui;
 
 	bool inGame = true;
-	bool tour = false;
+	bool tour = true;
 	Joueur *joueur_actif;
 	Joueur *joueur_cible;
 	UI ui;

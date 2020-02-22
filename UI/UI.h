@@ -14,7 +14,8 @@ public:
 	void initialiserEcran(int x,int y);
 	void afficherHUD(Joueur j1, Joueur j2);
 	void afficherJoueur(Joueur j1, Joueur j2);
-
+	void afficherProjectile(int position);
+	void afficherTour(Joueur* pJoueurActif);
 };
 
 

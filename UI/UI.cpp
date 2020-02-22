@@ -7,10 +7,10 @@
 #include <iomanip>
 
 void UI::initialiserEcran(int x, int y) {
-	setScreen(x+20,y+6);
+	setScreen(x + 20, y + 6);
 	dessinerCadre(offsetX, offsetY, x + offsetX, y + offsetY, CadreDouble);
 	setXY(50, 1);
-	setTextBackgroundColor(ROUGE,NOIR);
+	setTextBackgroundColor(ROUGE, NOIR);
 	cout << "LE BUS";
 	setTextBackgroundColor(NOIR, NOIR);
 	setXY(50, y + 4);
@@ -85,7 +85,7 @@ void UI::afficherHUD(Joueur j1, Joueur j2) {
 
 	setBackgroundColor(BLEU);
 	for (int i = 0; i < j1.getPointsDeplacement(); i++) {
-		setX(offsetX + 12 + (2*i));
+		setX(offsetX + 12 + (2 * i));
 		cout << " ";
 	}
 
@@ -104,12 +104,12 @@ void UI::afficherHUD(Joueur j1, Joueur j2) {
 	//Affichage de l'angle joueur 1
 	setTextBackgroundColor(GRIS_CLAIR, NOIR);
 	setXY(offsetX + 12, offsetY + 7);
-	cout << j1.getAngle() <<" deg";
+	cout << j1.getAngle() << " deg";
 	if (j1.getAngle() < 10)
-		cout << " " ;
+		cout << " ";
 	//Affichage de l'angle joueur 2
-	setXY(offsetX + 75,offsetY+7);
-	cout << j2.getAngle()<<" deg";
+	setXY(offsetX + 75, offsetY + 7);
+	cout << j2.getAngle() << " deg";
 	if (j2.getAngle() < 10)
 		cout << " ";
 
@@ -135,7 +135,7 @@ void UI::afficherJoueur(Joueur j1, Joueur j2) {
 	setXY(offsetX + 1, offsetY + 16);
 	cout << setw(92);
 	cout << " ";
-	setXY(offsetX + 1, offsetY + 17); 
+	setXY(offsetX + 1, offsetY + 17);
 	cout << setw(92);
 	cout << " ";
 	setXY(offsetX + 1, offsetY + 18);
@@ -166,7 +166,35 @@ void UI::afficherJoueur(Joueur j1, Joueur j2) {
 	cout << "    /~~~~~~~\\";
 	setXY(offsetX + 1 + j2.getPosition().x, offsetY + 19);
 	cout << "    \\O.O.O.O/";
+}
 
+//Affichage tour par tour
+void UI::afficherTour(Joueur* pJoueurActif)
+{
+	setXY(offsetX + 1, offsetY + 13);
+	cout << setw(92);
+	cout << " ";
+	setXY(offsetX + 1, offsetY + 14);
+	cout << setw(92);
+	cout << " ";
+	setXY(offsetX + 1, offsetY + 15);
+	cout << setw(92);
+	cout << " ";
 
+	setTextBackgroundColor(GRIS_CLAIR, NOIR);
+	setXY(offsetX + pJoueurActif->getPosition().x + 6, offsetY + 13);
+	cout << "|";
+	setXY(offsetX + pJoueurActif->getPosition().x + 6, offsetY + 14);
+	cout << "|";
+	setXY(offsetX + pJoueurActif->getPosition().x + 6, offsetY + 15);
+	cout << "V";
+}
 
+//Afficher le projedctile lancée
+void UI::afficherProjectile(int position)
+{
+	if(position >=0 && position <=93){
+		setXY(offsetX + 1 + position, offsetY + 19);
+		cout << "X";
+	}
 }

@@ -7,7 +7,7 @@ Joueur::Joueur()
 {
     vie = VIE_MAX;
 	pointsDeplacement = POINTS_DEPLACEMENT; 
-	puissance = 50;
+	puissance = 10;
 	angle = 45;
 }
 
@@ -83,8 +83,10 @@ int Joueur::getPuissance() {
 	return puissance;
 }
 void Joueur::setPuissance(int puissance) {
-	this->puissance = puissance;
+	if (puissance <= 50 && puissance>0)
+		this->puissance = puissance;
 }
 void Joueur::setAngle(int angle) {
-	this->angle = angle;
+	if(angle>=0 && angle<=90)
+		this->angle = angle;
 }
