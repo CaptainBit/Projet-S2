@@ -7,6 +7,7 @@
 
 GameManager::GameManager()
 {
+	
     joueur_un = new Joueur();
     joueur_deux = new Joueur();
     joueur_actif = joueur_un;
@@ -78,12 +79,15 @@ void GameManager::en_jeux(char choice)
 		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'i':
-		joueur_actif->setPuissance(joueur_actif->getPuissance()+1);
+		joueur_actif->setPuissance(joueur_actif->getPuissance() + 1);
 		ui.afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'f':
 		tirer();
-		ui.afficherHUD(*joueur_un, *joueur_deux);
+		if (inGame){
+			ui.afficherHUD(*joueur_un, *joueur_deux);
+			changer_tour();
+		}
 		break;
 	default:
 		break;
@@ -92,7 +96,7 @@ void GameManager::en_jeux(char choice)
 
 void GameManager::end_game()
 {
-	//ui de fin de jeu
+	ui.afficherVainqueur(tour);
 	inGame = false;
 }
 	
@@ -106,7 +110,7 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	Projectile boum = joueur_actif->tirer(joueur_actif->getAngle(), joueur_actif->getPuissance());
 	int position_cible = joueur_cible->getPosition().x;
 	
-	int buffer_cible = 10;
+	int buffer_cible = 12;
 	// APPELER AFFICHER EXPLOSITON
 	int sens;
 	if (tour)
@@ -114,14 +118,14 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	else sens= 1;
 	int position_impact = joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0);
 	ui.afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
-	if(position_cible-buffer_cible <= position_impact && position_cible+buffer_cible >= position_impact){
+	if(position_cible<= position_impact && position_cible+buffer_cible >= position_impact){
 		int degat = boum.getDegat();
 		if(!joueur_cible->endomager(degat))
 			end_game();
 	}
 	//AFFICHER UNE EXPLOSION AU SOL SI PAS TOUCHE CIBLE
 	//AFFICHER NOUVEAU HUD avec la vie update du joueur
-	changer_tour();
+	
 		
 }
 bool GameManager::getStatus() {

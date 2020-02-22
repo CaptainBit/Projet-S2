@@ -16,6 +16,7 @@ public:
 	void afficherJoueur(Joueur j1, Joueur j2);
 	void afficherProjectile(int position);
 	void afficherTour(Joueur* pJoueurActif);
+	void afficherVainqueur(bool t);
 };
 
 

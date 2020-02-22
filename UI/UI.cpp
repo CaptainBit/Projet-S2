@@ -7,9 +7,10 @@
 #include <iomanip>
 
 void UI::initialiserEcran(int x, int y) {
+	clearScreen();
 	setScreen(x + 20, y + 6);
 	dessinerCadre(offsetX, offsetY, x + offsetX, y + offsetY, CadreDouble);
-	setXY(50, 1);
+	setXY(53, 1);
 	setTextBackgroundColor(ROUGE, NOIR);
 	cout << "LE BUS";
 	setTextBackgroundColor(NOIR, NOIR);
@@ -197,4 +198,16 @@ void UI::afficherProjectile(int position)
 		setXY(offsetX + 1 + position, offsetY + 19);
 		cout << "X";
 	}
+}
+
+//Afficher le vainqueur
+void UI::afficherVainqueur(bool t)
+{
+	clearScreen();
+	setTextBackgroundColor(GRIS_CLAIR, NOIR);
+	setXY(offsetX + 37, offsetY + 8);
+	
+	cout << "Victoire du Joueur " << (int(t)) + 1; 
+	setXY(offsetX + 28, offsetY + 17);
+	
 }
