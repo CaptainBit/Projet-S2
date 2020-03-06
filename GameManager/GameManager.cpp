@@ -120,7 +120,7 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	ui.afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
 
 	// *** GERER CE IF CASE DANS PROJECTILE AFIN DE MIEUX GERER LES CAS DE "AREA OF EFFECT" ***					--->		NOTE VIANNEY
-	// SOIT ATTRIBUER LES DEGATS EN FCT DE LA DISTANCE (rentrer distance en parametre)
+	// SOIT ATTRIBUER LES DEGATS VERIFIANT LA DISTANCE (rentrer distance en parametre) DANS LA FONCTION getDegat(int distance)
 	if(position_cible<= position_impact && position_cible+buffer_cible >= position_impact){
 		int degat = boum.getDegat();
 		if(!joueur_cible->endomager(degat))
