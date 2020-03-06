@@ -16,7 +16,7 @@ protected:
 	Parabole trajectoire;
 	int degat;
 public:
-	Projectile();		// Besoin d un default constructeur pour instancier la classe enfant Explosif
+	Projectile();		// Besoin d un default constructor pour instancier les classe enfant
 	Projectile(Vec2 position,float force,float angle);
 	Parabole getTrajectoire();
 	int getDegat();
@@ -25,8 +25,7 @@ public:
 };
 
 
-class Explosif :public Projectile
-{
+class Explosif :public Projectile {
 protected:
 	int AOF;
 	int degat_AOF;
@@ -36,3 +35,13 @@ public:
 };
 
 #endif //PROJET_PROJECTILE_H
+
+class Buckshot: public Projectile {
+protected:
+	int bullets[10];		// This array stores the offset from center impact each bullet of the buckshot have
+	int offset;				// Depend de la distance en X parcourure par le projectile
+public:
+	Buckshot(Vec2 position, float angle, float force);
+	int getDegat(int distance);
+	void setOffset(int dist_x);
+};
