@@ -20,7 +20,7 @@ public:
 
     Parabole(Vec2 p_coord, float p_angle, float p_force){
         initialVelocity = p_force;
-        angle = p_angle * (M_PI/180);
+        angle = p_angle * (3.14159265359 /180);
         initialCoord = p_coord;
     }
 
@@ -34,6 +34,9 @@ public:
         float t = (x - initialCoord.x)/(initialVelocity*cos(angle));
         return (initialVelocity * t * sin(angle)) - (0.5 * t * t * G)  + initialCoord.y;
     }
+	int getX(int y) {
+		return initialVelocity * initialVelocity * 2 * sin(angle) / G;
+	}
 
 private:
     float initialVelocity;

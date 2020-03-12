@@ -6,65 +6,128 @@
 
 
 GameManager::GameManager()
-{// pour un array de 10X10
-	terrain = new Terrain(DEFAULT_SIZE);
-
-    joueur_un = new Joueur();
-    joueur_deux = new Joueur();
-}
-
-GameManager::GameManager(int hauteur, int largeur)
 {
-	terrain = new Terrain(Vec2(hauteur,largeur));
+	
     joueur_un = new Joueur();
     joueur_deux = new Joueur();
+    joueur_actif = joueur_un;
+	joueur_cible = joueur_deux;
 }
+
+
 GameManager::~GameManager()
 {
 	delete joueur_un;
 	delete joueur_deux;
-	delete terrain;
 }
 void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du joueur actif
 {
+	//reset angle & force
+	if(tour)
+	{
+		joueur_actif = joueur_un;
+		joueur_cible = joueur_deux;
+	}
+	else
+	{
+		joueur_actif = joueur_deux;
+		joueur_cible = joueur_un;
+	}
+	
+	joueur_actif->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
+	ui.afficherTour(joueur_actif);
 	tour = !tour;
-	if(tour){
-		joueur_un->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
-	}
-	else{
-		joueur_deux->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
-	}
-}
-void GameManager::refresh_frame()	//Afficher le UI avec les donnees a jour
-{
-	//ui.afficher();
 }
 
 void GameManager::start_game()
 {
-	
+	joueur_un->setPosition({ 0,0 });
+	joueur_deux->setPosition({ 79,0 });
+	ui.initialiserEcran(93, 20);
+	ui.afficherHUD(*joueur_un, *joueur_deux);
+	ui.afficherJoueur(*joueur_un, *joueur_deux);
+	changer_tour();
+}
+
+void GameManager::en_jeux(char choice)
+{
+	switch (choice)
+	{
+	case 'a': if (joueur_actif->deplacer(-1)) {
+		ui.afficherJoueur(*joueur_un, *joueur_deux);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		ui.afficherTour(joueur_actif);
+	}
+			  break;
+	case 'd':
+		if (joueur_actif->deplacer(1)) {
+			ui.afficherJoueur(*joueur_un, *joueur_deux);
+			ui.afficherHUD(*joueur_un, *joueur_deux);
+			ui.afficherTour(joueur_actif);
+		}
+		break;
+	case 'w':
+		joueur_actif->setAngle(joueur_actif->getAngle() + 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 's':
+		joueur_actif->setAngle(joueur_actif->getAngle() - 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 'u':
+		joueur_actif->setPuissance(joueur_actif->getPuissance() - 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 'i':
+		joueur_actif->setPuissance(joueur_actif->getPuissance() + 1);
+		ui.afficherHUD(*joueur_un, *joueur_deux);
+		break;
+	case 'f':
+		tirer();
+		if (inGame){
+			ui.afficherHUD(*joueur_un, *joueur_deux);
+			changer_tour();
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void GameManager::end_game()
 {
-	
+	ui.afficherVainqueur(tour);
+	inGame = false;
 }
 	
 	
 	//Methodes lies a la gestion d evenements:
-void GameManager::deplacer_joueur()
-{
-	refresh_frame();
-}
+
 void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance de maniere consecutive
 {
+	//Gerer les fonctions tirer des joueurs
 	
-}
-void GameManager::set_angle()
-{
+	Projectile boum = joueur_actif->tirer(joueur_actif->getAngle(), joueur_actif->getPuissance());
+	int position_cible = joueur_cible->getPosition().x;
 	
-}
-void GameManager::set_puissance()
-{
+	int buffer_cible = 12;			// Largeur prise par le tank - A VERIFIER AVEC Qt
+	// APPELER AFFICHER EXPLOSITON
+	int sens;
+	if (tour)
+		sens = -1;
+	else sens= 1;
+	int position_impact = joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0);
+	ui.afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
 	
+	int degat = boum.getDegat(position_impact, position_cible);
+	if(!joueur_cible->endomager(degat)) end_game();
+
+	//AFFICHER UNE EXPLOSION AU SOL SI PAS TOUCHE CIBLE
+	//AFFICHER NOUVEAU HUD avec la vie update du joueur
+	
+		
 }
+bool GameManager::getStatus() {
+	return inGame;
+}
+

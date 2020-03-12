@@ -7,6 +7,8 @@ Joueur::Joueur()
 {
     vie = VIE_MAX;
 	pointsDeplacement = POINTS_DEPLACEMENT; 
+	puissance = 0;
+	angle = 1;
 }
 
 int Joueur::getVie()
@@ -53,7 +55,13 @@ void Joueur::setPointsDeplacement(int points)
 //Deplacer le tank(Positif vers la droite et negatif vers la gauche). Retourne s'il avait assez de point de deplacement
 bool Joueur::deplacer(int deplacement)
 {
-
+	
+	if (pointsDeplacement - abs(deplacement) >= 0 && position.x + deplacement>=0 && position.x + deplacement <= 79) {
+		pointsDeplacement -= abs(deplacement);
+		position.x += deplacement;
+		return 1;
+	}
+	return 0;
 }
 
 //Enleve le nombre de point de degat a la vie. Retourne si le tank est toujours en vie. 
@@ -67,4 +75,18 @@ Projectile Joueur::tirer(float angle, float force)
 {
 	Projectile projectile(position,angle, force);
 	return projectile; 
+}
+int Joueur::getAngle() {
+	return angle;
+}
+int Joueur::getPuissance() {
+	return puissance;
+}
+void Joueur::setPuissance(int puissance) {
+	if (puissance <= 50 && puissance>0)
+		this->puissance = puissance;
+}
+void Joueur::setAngle(int angle) {
+	if(angle>0 && angle<90)
+		this->angle = angle;
 }

@@ -7,9 +7,10 @@
 #define PROJET_JOUEUR_H
 #include "..\Projectile\Projectile.h"
 #include "../Vec2.h"
+#include <cstdlib>
 
 #define POINTS_DEPLACEMENT 10
-#define VIE_MAX  100
+#define VIE_MAX  20
 
 class Joueur {
 private:
@@ -17,6 +18,8 @@ private:
 	Vec2 position;
 	int typeProjectile;
 	int pointsDeplacement;
+	int angle;
+	int puissance;
 public:
 	Joueur();
 	int getVie();
@@ -27,6 +30,10 @@ public:
 	void setPosition(Vec2 position);
 	void setTypeProjectile(int type);
 	void setPointsDeplacement(int points);
+	int getPuissance();
+	int getAngle();
+	void setPuissance(int puissance);
+	void setAngle(int angle);
 
 	//Deplacer le tank(Positif ver la droit et negatif vers la gauche). Retourne s'il avait assez de point de deplacement
 	bool deplacer(int deplacement);
