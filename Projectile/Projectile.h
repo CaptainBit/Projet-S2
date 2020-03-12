@@ -15,11 +15,12 @@ class Projectile {
 protected:
 	Parabole trajectoire;
 	int degat;
+	int buffer = 12;		// LARGEUR DU TANK - Verifier avec Qt
 public:
 	Projectile();		// Besoin d un default constructor pour instancier les classe enfant
 	Projectile(Vec2 position,float force,float angle);
 	Parabole getTrajectoire();
-	int getDegat();
+	int getDegat(int position_impact, int position_cible);
 	void setParabole(Parabole trajectoire);
 	void setDegat(int degat);
 };
@@ -27,21 +28,19 @@ public:
 
 class Explosif :public Projectile {
 protected:
-	int AOF;
+	int buffer_AOF;
 	int degat_AOF;
 public:
 	Explosif(Vec2 position, float angle, float force);
-	int getDegat(int distance);		// Determine si degat type direct ou type AOF
+	int getDegat(int position_impact, int position_cible);		// Determine si degat type direct ou type AOF
 };
 
 #endif //PROJET_PROJECTILE_H
 
 class Buckshot: public Projectile {
 protected:
-	int bullets[10];		// This array stores the offset from center impact each bullet of the buckshot have
-	int offset;				// Depend de la distance en X parcourure par le projectile
+	Projectile bullets[12];		// This array stores the offset from center impact each bullet of the buckshot have
 public:
 	Buckshot(Vec2 position, float angle, float force);
-	int getDegat(int distance);
-	void setOffset(int dist_x);
+	int getDegat(int position_impact, int position_cible);
 };

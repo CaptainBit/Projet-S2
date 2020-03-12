@@ -110,7 +110,7 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	Projectile boum = joueur_actif->tirer(joueur_actif->getAngle(), joueur_actif->getPuissance());
 	int position_cible = joueur_cible->getPosition().x;
 	
-	int buffer_cible = 12;
+	int buffer_cible = 12;			// Largeur prise par le tank - A VERIFIER AVEC Qt
 	// APPELER AFFICHER EXPLOSITON
 	int sens;
 	if (tour)
@@ -118,14 +118,10 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 	else sens= 1;
 	int position_impact = joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0);
 	ui.afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
+	
+	int degat = boum.getDegat(position_impact, position_cible);
+	if(!joueur_cible->endomager(degat)) end_game();
 
-	// *** GERER CE IF CASE DANS PROJECTILE AFIN DE MIEUX GERER LES CAS DE "AREA OF EFFECT" ***					--->		NOTE VIANNEY
-	// SOIT ATTRIBUER LES DEGATS VERIFIANT LA DISTANCE (rentrer distance en parametre) DANS LA FONCTION getDegat(int distance)
-	if(position_cible<= position_impact && position_cible+buffer_cible >= position_impact){
-		int degat = boum.getDegat();
-		if(!joueur_cible->endomager(degat))
-			end_game();
-	}
 	//AFFICHER UNE EXPLOSION AU SOL SI PAS TOUCHE CIBLE
 	//AFFICHER NOUVEAU HUD avec la vie update du joueur
 	
