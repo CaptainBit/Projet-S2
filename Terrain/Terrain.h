@@ -6,12 +6,24 @@
 #define PROJET_TERRAIN_H
 
 #include "../Vec2.h"
+#include <ctime> 
+#include "../generique.h"
+#include <iostream>
+#include "../UI/DosGraph.h"
+
+using namespace std;
 
 class Terrain {
 public:
-    Terrain(Vec2 p_dimension);
+    Terrain(int longueurTerrain, int hauteurMax);
+	void fragmenterTerrain(int x);
+	~Terrain();
 private:
-    Vec2 dimension;
+	int* m_terrain;
+	int m_longueurTerrain;
+	int m_hauteurMax;
+	void genererTerrain();
+	
 
 };
 

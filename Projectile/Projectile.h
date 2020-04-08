@@ -35,7 +35,7 @@ public:
 	int getDegat(int position_impact, int position_cible);		// Determine si degat type direct ou type AOF
 };
 
-#endif //PROJET_PROJECTILE_H
+//PROJET_PROJECTILE_H
 
 class Buckshot: public Projectile {
 protected:
@@ -44,3 +44,4 @@ public:
 	Buckshot(Vec2 position, float angle, float force);
 	int getDegat(int position_impact, int position_cible);
 };
+#endif 

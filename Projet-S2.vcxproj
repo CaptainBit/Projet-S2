@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="GameManager\GameManager.cpp" />
     <ClCompile Include="GameManager\Joueur.cpp" />
+    <ClCompile Include="generique.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Projectile\Projectile.cpp" />
     <ClCompile Include="Terrain\Terrain.cpp" />
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="GameManager\GameManager.h" />
     <ClInclude Include="GameManager\Joueur.h" />
+    <ClInclude Include="generique.h" />
     <ClInclude Include="Projectile\Physic.h" />
     <ClInclude Include="Projectile\Projectile.h" />
     <ClInclude Include="Terrain\Terrain.h" />
