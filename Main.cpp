@@ -8,13 +8,10 @@
 #include <QApplication>
 
 int main (int argc, char *argv[]) {
-	GameManager game;
+	
 
 	QApplication app(argc, argv);
-	UI ui;
-	ui.show();
-	
-	// GameManager settings to add
+	GameManager game;
 
 	return app.exec();
 

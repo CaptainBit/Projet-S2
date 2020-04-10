@@ -3,6 +3,7 @@
 //
 
 #include "GameManager.h"
+#include <qapplication.h>
 
 GameManager::GameManager()
 {
@@ -11,6 +12,9 @@ GameManager::GameManager()
     joueur_deux = new Joueur();
     joueur_actif = joueur_un;
 	joueur_cible = joueur_deux;
+
+	ui = new UI;
+	ui->show();
 }
 
 
@@ -18,6 +22,7 @@ GameManager::~GameManager()
 {
 	delete joueur_un;
 	delete joueur_deux;
+	delete ui;
 }
 void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du joueur actif
 {
@@ -34,7 +39,7 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 	}
 	
 	joueur_actif->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
-	ui.afficherTour(joueur_actif);
+	ui->afficherTour(joueur_actif);
 	tour = !tour;
 }
 
@@ -42,9 +47,9 @@ void GameManager::start_game()
 {
 	joueur_un->setPosition({ 0,0 });
 	joueur_deux->setPosition({ 79,0 });
-	ui.initialiserEcran(93, 20);
-	ui.afficherHUD(*joueur_un, *joueur_deux);
-	ui.afficherJoueur(*joueur_un, *joueur_deux);
+	ui->initialiserEcran(93, 20);
+	ui->afficherHUD(*joueur_un, *joueur_deux);
+	ui->afficherJoueur(*joueur_un, *joueur_deux);
 	changer_tour();
 }
 
@@ -53,38 +58,38 @@ void GameManager::en_jeux(char choice)
 	switch (choice)
 	{
 	case 'a': if (joueur_actif->deplacer(-1)) {
-		ui.afficherJoueur(*joueur_un, *joueur_deux);
-		ui.afficherHUD(*joueur_un, *joueur_deux);
-		ui.afficherTour(joueur_actif);
+		ui->afficherJoueur(*joueur_un, *joueur_deux);
+		ui->afficherHUD(*joueur_un, *joueur_deux);
+		ui->afficherTour(joueur_actif);
 	}
 			  break;
 	case 'd':
 		if (joueur_actif->deplacer(1)) {
-			ui.afficherJoueur(*joueur_un, *joueur_deux);
-			ui.afficherHUD(*joueur_un, *joueur_deux);
-			ui.afficherTour(joueur_actif);
+			ui->afficherJoueur(*joueur_un, *joueur_deux);
+			ui->afficherHUD(*joueur_un, *joueur_deux);
+			ui->afficherTour(joueur_actif);
 		}
 		break;
 	case 'w':
 		joueur_actif->setAngle(joueur_actif->getAngle() + 1);
-		ui.afficherHUD(*joueur_un, *joueur_deux);
+		ui->afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 's':
 		joueur_actif->setAngle(joueur_actif->getAngle() - 1);
-		ui.afficherHUD(*joueur_un, *joueur_deux);
+		ui->afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'u':
 		joueur_actif->setPuissance(joueur_actif->getPuissance() - 1);
-		ui.afficherHUD(*joueur_un, *joueur_deux);
+		ui->afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'i':
 		joueur_actif->setPuissance(joueur_actif->getPuissance() + 1);
-		ui.afficherHUD(*joueur_un, *joueur_deux);
+		ui->afficherHUD(*joueur_un, *joueur_deux);
 		break;
 	case 'f':
 		tirer();
 		if (inGame){
-			ui.afficherHUD(*joueur_un, *joueur_deux);
+			ui->afficherHUD(*joueur_un, *joueur_deux);
 			changer_tour();
 		}
 		break;
@@ -95,7 +100,7 @@ void GameManager::en_jeux(char choice)
 
 void GameManager::end_game()
 {
-	ui.afficherVainqueur(tour);
+	ui->afficherVainqueur(tour);
 	inGame = false;
 }
 	
@@ -116,7 +121,7 @@ void GameManager::tirer()		//Va probablement appeler set_angle et set_puissance 
 		sens = -1;
 	else sens= 1;
 	int position_impact = joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0);
-	ui.afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
+	ui->afficherProjectile(joueur_actif->getPosition().x + sens * boum.getTrajectoire().getX(0));
 	
 	int degat = boum.getDegat(position_impact, position_cible);
 	if(!joueur_cible->endomager(degat)) end_game();

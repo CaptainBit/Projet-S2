@@ -26,7 +26,7 @@ private:
 	bool tour = true;
 	Joueur *joueur_actif;
 	Joueur *joueur_cible;
-	UI ui;
+	UI *ui;
 	
 public:
 	GameManager();
@@ -37,13 +37,11 @@ public:
 	//Methodes lies a la gestion d evenements:
 	void tirer();			//Va probablement appeler getAngle et getPuissance de maniere consecutive
 
-
 	void start_game();
 	void en_jeux(char choice);
 	void end_game();
 	bool getStatus();
 
 };
-
 
 #endif //PROJET_GAMEMANAGER_H

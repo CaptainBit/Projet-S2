@@ -71,7 +71,7 @@ private:
 	//Projectiles
 	QPixmap *bullet;
 	QPixmap *buckshot[10];
-	QPixmap *explosion_AOF;
+	QPixmap *explosion_AOF[10];
 
 };
 
