@@ -41,22 +41,37 @@ private:
 	QSound* wav_player;
 
 	//HUD
+	QPixmap *key_binding;
 
+	//COMMENT AFFICHER UN RECTANGLE DE VIE SIMPLEMENT? (qpainter?)
 
-	//MENU DEMARRAGE
-	QPushButton *play;
+	QPixmap *projectile_1_j1;
+	QPixmap *projectile_2_j1;
+	QPixmap *projectile_3_j1;
+
+	QPixmap *projectile_1_j2;
+	QPixmap *projectile_2_j2;
+	QPixmap *projectile_3_j2;
+	
+
+		//MENU DEMARRAGE
+	QPushButton *start;
 	QPushButton *exit;
 
 	//Joueurs
 	QPixmap *joueur_1;
+	QPixmap *joueur_1_canon;
 	QPixmap *joueur_2;
+	QPixmap *joueur_2_canon;
 
 	//Affichage vainqueur 
 	QPixmap *joueur_1_WINS;
 	QPixmap *joueur_2_WINS;
 
 	//Projectiles
-
+	QPixmap *bullet;
+	QPixmap *buckshot[10];
+	QPixmap *explosion_AOF;
 
 };
 
