@@ -31,6 +31,22 @@ public slots:
 private:
 	QWidget* mainCentralWidget;
 	QLabel* mainBackground;
+	QHBoxLayout* mainLayout;
+
+	//HUD
+
+	//MENU DEMARRAGE
+	QPushButton *play;
+	QPushButton *exit;
+	QPushButton *settings;
+
+
+
+	//Joueurs
+
+	//Affichage vainqueur
+
+	//Projectiles
 
 };
 
