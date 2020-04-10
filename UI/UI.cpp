@@ -4,7 +4,6 @@
 
 #include "UI.h"
 #include <iomanip>
-#include <qpushbutton.h>
 
 UI::UI() {
 	mainCentralWidget = new QWidget(this);
@@ -23,8 +22,6 @@ UI::UI() {
 	mainLayout->addWidget(mainBackground);
 	mainCentralWidget->setLayout(mainLayout);
 	setCentralWidget(mainCentralWidget);
-
-	
 
 	//show(); ***** On le montre deja dans le main il me semble
 }
@@ -82,5 +79,13 @@ void UI::afficherVainqueur(bool t)
 }
 
 void UI::afficherMenuDemarrage() {
+
+}
+
+//SLOTS
+void UI::play_game() {
+
+}
+void UI::mute_sound() {
 
 }

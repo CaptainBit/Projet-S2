@@ -8,3 +8,4 @@ INCLUDEPATH += ./UI
 INCLUDEPATH += ./Terrain
 CONFIG += warn_on qt debug winodws console
 QT += widgets
+QT += multimedia

@@ -6,6 +6,9 @@
 #include <QImage>
 #include <QLabel>
 #include <QLayout>
+#include <qpushbutton.h>
+#include <qradiobutton.h>
+#include <qsound.h>
 
 #include "../GameManager/Joueur.h"
 
@@ -27,26 +30,33 @@ public:
 	void afficherMenuDemarrage();
 
 public slots:
+	void play_game();
+	void mute_sound();
 
 private:
 	QWidget* mainCentralWidget;
 	QLabel* mainBackground;
 	QHBoxLayout* mainLayout;
+	QRadioButton* mute;
+	QSound* wav_player;
 
 	//HUD
+
 
 	//MENU DEMARRAGE
 	QPushButton *play;
 	QPushButton *exit;
-	QPushButton *settings;
-
-
 
 	//Joueurs
+	QPixmap *joueur_1;
+	QPixmap *joueur_2;
 
-	//Affichage vainqueur
+	//Affichage vainqueur 
+	QPixmap *joueur_1_WINS;
+	QPixmap *joueur_2_WINS;
 
 	//Projectiles
+
 
 };
 
