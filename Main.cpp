@@ -3,19 +3,15 @@
 //
 #include "GameManager/GameManager.h"
 #include <iostream>
-#include <conio.h>
 #include "Terrain/Terrain.h"
+#include "UI\UI.h"
+#include <QApplication>
 
 int main (int argc, char *argv[]) {
-	/*recommencer:
-	GameManager gm;
-	gm.start_game();
-	while (gm.getStatus()) {
-		gm.en_jeux(_getch());
-	}*/
-	Terrain terrain(1000, 80); 
 
+	QApplication app(argc, argv);
+	UI ui;
+	ui.show();
+	return app.exec();
 
-	system("PAUSE");
-	//goto recommencer;
 }
