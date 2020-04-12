@@ -13,22 +13,23 @@
 #include <QChar>
 
 
-
-
-
 Interface::Interface() {
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
 	setStyleSheet(qss.readAll());
 	qss.close();
+
 	//Déclaration des pointeurs
 	centralWidget = new QWidget();
 	barres = new QWidget();
+	barres->setObjectName("HUD");
 	zoneDeJeu= new QWidget();
 	disposition = new QVBoxLayout(centralWidget);
 	hud = new QGridLayout(barres);
 	QPalette palFond = palette();
 	QPalette palTank = palette();
+	tour = new QLabel();
+	tour->setObjectName("tourParTour");
 
 	//Taille des layouts du centralWidget
 	zoneDeJeu->setFixedHeight((HAUTEUR_FENETRE * 4) / 5);
@@ -37,8 +38,7 @@ Interface::Interface() {
 	barres->setFixedWidth(LONGUEUR_FENETRE);
 
 	//Initialisation de la zone de jeu
-	
-	tank1 = new Tank(0, zoneDeJeu);
+	tank1 = new Tank(-1, zoneDeJeu);
 	tank2 = new Tank(1, zoneDeJeu);
 	terrain = new Terrain(LONGUEUR_FENETRE, (HAUTEUR_FENETRE * 1) / 5, (HAUTEUR_FENETRE * 4) / 5, zoneDeJeu);
 
@@ -48,8 +48,6 @@ Interface::Interface() {
 	deplacement_p1 = new QProgressBar();
 	deplacement_p2 = new QProgressBar();
 	
-	
-
 	//Vie Player 1
 	health_p1->setObjectName("Health");
 	health_p1->setOrientation(Qt::Horizontal);
@@ -91,14 +89,29 @@ Interface::Interface() {
 	deplacement_p2->setFixedHeight(30);
 	deplacement_p2->setFixedWidth(250);
 	deplacement_p2->setTextVisible(false);
+
+	//Initialisation des boutons
+	munitionsPlayer1 = new Munitions();
+	munitionsPlayer2 = new Munitions();
 	
-	//Ajouter les progress bar au HUD
+	//Ajouter les progress bar, le tour par tour et les boutons au HUD
 	hud->addWidget(health_p1, 0, 0);
-	hud->addWidget(health_p2, 0, 1);
+	hud->addWidget(health_p2, 0, 2);
 	hud->addWidget(deplacement_p1, 1, 0);
-	hud->addWidget(deplacement_p2, 1, 1);
-	hud->setVerticalSpacing(1);
-	hud->setHorizontalSpacing(800);
+	hud->addWidget(deplacement_p2, 1, 2);
+	hud->addWidget(munitionsPlayer1, 2, 0);
+	hud->addWidget(munitionsPlayer2, 2, 2);
+	hud->addWidget(tour, 1,1);
+	hud->setVerticalSpacing(10);
+	hud->setAlignment(tour, Qt::AlignCenter);
+	
+	hud->setAlignment(munitionsPlayer1, Qt::AlignLeft);
+	hud->setAlignment(munitionsPlayer2, Qt::AlignRight);
+	hud->setAlignment(health_p1, Qt::AlignLeft);
+	hud->setAlignment(health_p2, Qt::AlignRight);
+	hud->setAlignment(deplacement_p1, Qt::AlignLeft);
+	hud->setAlignment(deplacement_p2, Qt::AlignRight);
+	
 
 	//Ajouteur les deux layouts au central widget
 	disposition->addWidget(barres);
@@ -116,26 +129,27 @@ Interface::Interface() {
 
 	//Initialisation du GameManager
 	gm = new GameManager(terrain);
-	gm->start_game();
 	joueur1 = gm->getJoueur1();
 	joueur2 = gm->getJoueur2();
 	connect(joueur1, SIGNAL(signalVie(int)), health_p1, SLOT(setValue(int)));
 	connect(joueur2, SIGNAL(signalVie(int)), health_p2, SLOT(setValue(int)));
-	connect(joueur1, SIGNAL(signalDeplacer(int, int)), tank1, SLOT(updatePosition(int, int)));
-	connect(joueur2, SIGNAL(signalDeplacer(int, int)), tank2, SLOT(updatePosition(int, int)));
+	connect(joueur1, SIGNAL(signalDeplacer(int, int,int)), tank1, SLOT(updatePosition(int, int,int)));
+	connect(joueur2, SIGNAL(signalDeplacer(int, int,int)), tank2, SLOT(updatePosition(int, int,int)));
 	connect(joueur1, SIGNAL(signalPointDeDeplacement(int)), deplacement_p1, SLOT(setValue(int)));
 	connect(joueur2, SIGNAL(signalPointDeDeplacement(int)), deplacement_p2, SLOT(setValue(int)));
-	connect(joueur1, SIGNAL(signalPuissance(int)), tank1, SLOT(updatePuissance(int)));
-	connect(joueur2, SIGNAL(signalPuissance(int)), tank2, SLOT(updatePuissance(int)));
+	connect(joueur1, SIGNAL(signalPuissance(int)), tank1, SLOT(updateJauge(int)));
+	connect(joueur2, SIGNAL(signalPuissance(int)), tank2, SLOT(updateJauge(int)));
 	connect(joueur1, SIGNAL(signalAngle(int)), tank1, SLOT(updateAngle(int)));
 	connect(joueur2, SIGNAL(signalAngle(int)), tank2, SLOT(updateAngle(int)));
 	connect(tank1, SIGNAL(moved()), terrain, SLOT(update()));
 	connect(tank2, SIGNAL(moved()), terrain, SLOT(update()));
+	connect(gm, SIGNAL(changementTour(string)), this, SLOT(changerTour(string)));
+	gm->start_game();
+	connect(gm, SIGNAL(changementTour()), tank1, SLOT(affichageJauge()));
+	connect(gm, SIGNAL(changementTour()), tank2, SLOT(affichageJauge()));
 	
-	
-	
-
 	//Initialisation du centralWidget
+	disposition->setMargin(0);
 	setCentralWidget(centralWidget);
 }
 Interface::~Interface() {
@@ -146,4 +160,7 @@ void Interface::keyPressEvent(QKeyEvent* event) {
 		gm->en_jeux(event->text()[0].toLatin1());
 
 	}
+}
+void Interface::changerTour(string texte) {
+	tour->setText(QString::fromStdString(texte));
 }

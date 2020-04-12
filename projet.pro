@@ -1,7 +1,7 @@
 TEMPLATE = vcapp
 TARGET = Tank_war
-HEADERS += Interface.h Tank.h Vec2.h ./Projectile/Physic.h ./Projectile/Projectile.h ./GameManager/GameManager.h ./GameManager/Joueur.h ./Terrain/Terrain.h ./Terrain/Generique.h
-SOURCES += Interface.cpp Tank.cpp main.cpp ./Projectile/Projectile.cpp ./GameManager/GameManager.cpp ./GameManager/Joueur.cpp ./Terrain/Terrain.cpp ./Terrain/Generique.cpp
+HEADERS += Interface.h Tank.h Vec2.h ./Projectile/Physic.h ./Projectile/Projectile.h ./GameManager/GameManager.h ./GameManager/Joueur.h ./Terrain/Terrain.h ./Terrain/Generique.h Munitions.h
+SOURCES += Interface.cpp Tank.cpp main.cpp ./Projectile/Projectile.cpp ./GameManager/GameManager.cpp ./GameManager/Joueur.cpp ./Terrain/Terrain.cpp ./Terrain/Generique.cpp Munitions.cpp
 INCLUDEPATH += ./GameManager
 INCLUDEPATH += ./Projectile
 INCLUDEPATH += ./Terrain

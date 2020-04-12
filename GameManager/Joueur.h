@@ -33,6 +33,7 @@ public:
 	int getPuissance();
 	int getAngle();
 
+
 	void setVie(int vie);
 	void setPosition(Vec2 position);
 	void setPuissance(int puissance);
@@ -47,7 +48,7 @@ signals:
 	void signalPuissance(int puissance);
 	void signalAngle(int angle);
 	void signalPointDeDeplacement(int point);
-	void signalDeplacer(int x,int y);
+	void signalDeplacer(int x,int y, int sens);
 	void signalTirer();
 };
 

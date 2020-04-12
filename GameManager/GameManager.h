@@ -10,12 +10,13 @@
 #include "../Projectile/Projectile.h"
 #include "Joueur.h"
 #include "../Terrain/Terrain.h"
+#include <QObject>
 
 
 #define DEFAULT_SIZE Vec2(93,1)
 
-class GameManager {
-
+class GameManager:public QObject {
+	Q_OBJECT
 private:
 	//Terrain *terrain;
 	Joueur *joueur_un;			// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
@@ -43,6 +44,9 @@ public:
 	bool getStatus();
 	Joueur* getJoueur1();
 	Joueur* getJoueur2();
+signals:
+	void changementTour();
+	void changementTour(string);
 };
 
 

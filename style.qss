@@ -12,8 +12,20 @@ QProgressBar {
  QProgressBar#Tank {
      border: 1px solid black;
      border-radius: 1px;
-     background-color: #c6c6c6;
+     background: qlineargradient( x1:0 y1:1, x2:0 y2:0, stop:0 #1be100, stop:1 #ff0d00, stop:0.5 #ffff00);
  }
  QProgressBar#Tank::chunk {
-     background: qlineargradient( x1:0 y1:0, x2:10 y2:0, stop:0 #1be100, stop:1 #ff0d00);
+     background-color: rgba(255,255,255,0%);
+	 border-top: 2px solid black;
+	 width: 1px;
+ }
+ QLabel#tourParTour{
+	border: 3px solid black;
+	background-color: #ff6600;
+	color: #c6c6c6;
+	font-size: 25px ;
+	font-weight: 900;
+ }
+ QWidget#HUD{
+	background: url(./Images/pattern.jpg) repeat;
  }

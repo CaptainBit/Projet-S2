@@ -16,6 +16,7 @@
 #include "../Tank.h"
 #include "../Terrain/Terrain.h"
 #include "../GameManager/GameManager.h"
+#include "../Munitions.h"
 #define HAUTEUR_FENETRE  720
 #define LONGUEUR_FENETRE  1280
 
@@ -38,10 +39,15 @@ private:
 	QVBoxLayout* disposition;
 	QGridLayout* hud;
 	GameManager* gm;
+	Munitions* munitionsPlayer1;
+	Munitions* munitionsPlayer2;
+	QLabel* tour; 
 public:
 	Interface();
 	~Interface();
 	void keyPressEvent(QKeyEvent* event);
+public slots:
+	void changerTour(string);
 };
 
 #endif

@@ -12,13 +12,15 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	stackedLayout->setStackingMode(QStackedLayout::StackAll);
 	layout->setMargin(0);
 	stackedLayout->setMargin(0);
+	int spacing = 10;
+	sensTank= sens;
 
 	//Creation Tank
 	body = new QLabel();
 	cannon = new QLabel();
 	QMatrix matrice;
 	matrice.scale(0.1, 0.1);
-	if (sens == 0) {
+	if (sens == -1) {
 		picture_body.load(GREEN_BODY_PATH);
 		picture_cannon.load(GREEN_CANNON_PATH);
 	}
@@ -26,6 +28,7 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 		picture_body.load(RED_BODY_PATH);
 		picture_cannon.load(RED_CANNON_PATH);
 		matrice.scale(-1, 1);
+	
 	}
 	picture_cannon = picture_cannon.transformed(matrice);
 	picture_body = picture_body.transformed(matrice);
@@ -35,25 +38,31 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	//Creation Jauge de puissance
 	jauge = new QProgressBar();
 	jauge->setObjectName("Tank");
-	jauge->setFixedHeight(picture_body.height());
-	jauge->setFixedWidth(int(picture_body.width() / 5));
+	jauge->setFixedHeight(picture_body.height()+20);
+	jauge->setFixedWidth(int(picture_body.width() / 4));
 	jauge->setMaximum(50);
 	jauge->setMinimum(1);
-	jauge->setValue(5);
+	jauge->setValue(0);
 	jauge->setOrientation(Qt::Vertical);
 	jauge->setTextVisible(false);
-
-	
 
 	//Ajout aux layouts
 	stackedLayout->addWidget(body);
 	stackedLayout->addWidget(cannon);
-	
-	if (sens == 0)
+	this->setFixedHeight(picture_body.height() + 20);
+	this->setFixedWidth((picture_body.width() * 5/ 4) + spacing);
+	layout->setSpacing(spacing);
+
+	if (sens == -1)
 		layout->addWidget(jauge);
 	layout->addWidget(tankEtCannon);
-	if (sens == 1)
+	if (sens == 1) {
 		layout->addWidget(jauge);
+		jauge->setVisible(false);
+	}
+	layout->setAlignment(tankEtCannon, Qt::AlignBottom);
+
+
 }
 Tank::~Tank() {
 
@@ -61,14 +70,23 @@ Tank::~Tank() {
 void Tank::updateJauge(int puissance) {
 	jauge->setValue(puissance);
 }
-void Tank::showJauge() {
-	jauge->show();
+void Tank::affichageJauge() {
+	if (jauge->isVisible())
+		jauge->setVisible(false);
+	else
+		jauge->setVisible(true);
 }
-void Tank::hideJauge() {
-	jauge->hide();
-}
-void Tank::updatePosition(int x,int y) {
+
+void Tank::updatePosition(int x,int y, int sens) {
+	QMatrix m;
 	this->move(x, y);
+	if (sensTank * sens > 0)
+		m.scale(-1, 1);
+	else if (sens * sensTank == 0)
+		return;
+	cannon->setPixmap(picture_cannon.transformed(m));
+	body->setPixmap(picture_body.transformed(m));
+
 }
 void Tank::updateAngle(int angle) {
 	QMatrix rm;
@@ -77,4 +95,8 @@ void Tank::updateAngle(int angle) {
 }
 void Tank::move(int x, int y) {
 	QWidget::move(x - this->width() / 2, y - this->height());
+}
+
+int Tank::getSensTank() {
+	return sensTank;
 }

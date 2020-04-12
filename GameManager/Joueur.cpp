@@ -6,10 +6,10 @@
 
 Joueur::Joueur()
 {
-    vie = VIE_MAX;
-	pointsDeplacement = POINTS_DEPLACEMENT; 
 	puissance = 0;
-	angle = 1;
+	setVie(VIE_MAX);
+	setPointsDeplacement(POINTS_DEPLACEMENT);
+	setAngle(1);
 }
 
 int Joueur::getVie()
@@ -42,7 +42,7 @@ void Joueur::setPosition(Vec2 position)
 {
 	this->position.x = position.x;
 	this->position.y = position.y;
-	signalDeplacer(position.x,position.y);
+	signalDeplacer(position.x,position.y,0);
 }
 
 void Joueur::setTypeProjectile(int type) 
@@ -64,7 +64,7 @@ bool Joueur::deplacer(int x,int y)
 		setPointsDeplacement(pointsDeplacement - abs(x));
 		position.x += x;
 		position.y = y;
-		signalDeplacer(position.x,position.y);
+		signalDeplacer(position.x,position.y,x);
 		return 1;
 	}
 	return 0;

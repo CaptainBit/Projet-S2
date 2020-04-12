@@ -19,18 +19,20 @@ private:
 	QLabel *cannon;
 	QProgressBar *jauge;
 	Joueur *joueur;
+	int sensTank;
 public:
 	Tank(int sens,QWidget *parent=NULL);
 	~Tank();
+	int getSensTank();
 public slots:
 	void updateJauge(int puissance);
-	void showJauge();
-	void hideJauge();
-	void updatePosition(int x, int y);
+	void affichageJauge();
+	void updatePosition(int x, int y, int sens);
 	void updateAngle(int angle);
 	void move(int x, int y);
 signals:
 	void moved();
+
 };
 
 #endif // !TANK_H
