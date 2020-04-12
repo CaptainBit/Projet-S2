@@ -28,22 +28,25 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 	{
 		joueur_actif = joueur_un;
 		joueur_cible = joueur_deux;
+		changementTour("JOUEUR 1");
 	}
 	else
 	{
 		joueur_actif = joueur_deux;
 		joueur_cible = joueur_un;
+		changementTour("JOUEUR 2");
 	}
 	
 	joueur_actif->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
 	
+	changementTour();
 	tour = !tour;
 }
 
 void GameManager::start_game()
 {
-	joueur_un->setPosition({ 40,terrain->getHauteur(40) });
-	joueur_deux->setPosition({LONGUEUR_FENETRE-40,terrain->getHauteur(LONGUEUR_FENETRE-40) });
+	joueur_un->setPosition({ 40 , terrain->getHauteur(40) });
+	joueur_deux->setPosition({LONGUEUR_FENETRE-40 , terrain->getHauteur(LONGUEUR_FENETRE-40) });
 	
 	changer_tour();
 }
@@ -65,15 +68,15 @@ void GameManager::en_jeux(char choice)
 		joueur_actif->setAngle(joueur_actif->getAngle() - 1);
 		
 		break;
-	case 'u':
+	case 'f':
 		joueur_actif->setPuissance(joueur_actif->getPuissance() - 1);
 		
 		break;
-	case 'i':
+	case 'r':
 		joueur_actif->setPuissance(joueur_actif->getPuissance() + 1);
 		
 		break;
-	case 'f':
+	case 'e':
 		tirer();
 		if (inGame){
 			

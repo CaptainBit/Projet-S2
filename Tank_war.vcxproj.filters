@@ -39,6 +39,9 @@
     <ClCompile Include="GameManager\Joueur.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Munitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Projectile\Projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,9 +56,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameManager\GameManager.h">
+    <CustomBuild Include="GameManager\GameManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <ClInclude Include="Terrain\Generique.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -65,6 +68,9 @@
     <CustomBuild Include="GameManager\Joueur.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="Munitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Projectile\Physic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -82,6 +88,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug\moc_GameManager.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_GameManager.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_Interface.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
