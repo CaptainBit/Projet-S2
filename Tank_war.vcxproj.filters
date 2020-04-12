@@ -27,13 +27,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UI\DosGraph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameManager\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Generique.cpp">
+    <ClCompile Include="Terrain\Generique.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameManager\Joueur.cpp">
@@ -42,10 +42,10 @@
     <ClCompile Include="Projectile\Projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain\Terrain.cpp">
+    <ClCompile Include="Tank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\UI.cpp">
+    <ClCompile Include="Terrain\Terrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -53,39 +53,51 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UI\DosGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Generique.h">
+    <ClInclude Include="Terrain\Generique.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager\Joueur.h">
+    <CustomBuild Include="Interface.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
+    <CustomBuild Include="GameManager\Joueur.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Projectile\Physic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Projectile\Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="Tank.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Terrain\Terrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UI\UI.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="Vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug\moc_UI.cpp">
+    <ClCompile Include="debug\moc_Interface.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_UI.cpp">
+    <ClCompile Include="release\moc_Interface.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_Joueur.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_Joueur.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_Tank.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_Tank.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <CustomBuild Include="debug\moc_predefs.h.cbt">

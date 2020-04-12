@@ -6,7 +6,6 @@
 #define PROJET_PROJECTILE_H
 
 #include "../Projectile/Physic.h"
-#include "../Projectile/Projectile.h"
 #include "../Vec2.h"
 
 #define DEGAT_DEFAULT 10;
@@ -20,7 +19,7 @@ public:
 	Projectile();		// Besoin d un default constructor pour instancier les classe enfant
 	Projectile(Vec2 position,float force,float angle);
 	Parabole getTrajectoire();
-	int getDegat(int position_impact, int position_cible);
+	int getDegat();
 	void setParabole(Parabole trajectoire);
 	void setDegat(int degat);
 };
@@ -35,7 +34,6 @@ public:
 	int getDegat(int position_impact, int position_cible);		// Determine si degat type direct ou type AOF
 };
 
-//PROJET_PROJECTILE_H
 
 class Buckshot: public Projectile {
 protected:
@@ -44,4 +42,4 @@ public:
 	Buckshot(Vec2 position, float angle, float force);
 	int getDegat(int position_impact, int position_cible);
 };
-#endif 
+#endif //PROJET_PROJECTILE_H

@@ -21,11 +21,9 @@ Projectile::Projectile(Vec2 position, float angle, float force) {
 Parabole Projectile::getTrajectoire() {
 	return trajectoire;
 }
-int Projectile::getDegat(int position_impact, int position_cible) {						// AJOUTER UN PARAMETRE "int distance" COMME SUGGERE DANS Projectile.h ???
-	if (position_cible <= position_impact && position_cible + buffer >= position_impact) {
+int Projectile::getDegat() {						// AJOUTER UN PARAMETRE "int distance" COMME SUGGERE DANS Projectile.h ???
+
 		return degat;
-	}
-	return 0;
 }
 void Projectile::setParabole(Parabole trajectoire) {
 	this->getTrajectoire() = trajectoire;
@@ -66,7 +64,7 @@ Buckshot::Buckshot(Vec2 position, float angle, float force) {
 int Buckshot::getDegat(int position_impact, int position_cible) {
 	int degat_resultant = 0;
 	for (Projectile i : bullets) {
-		degat_resultant += i.getDegat(position_impact, position_cible);
+		degat_resultant += i.getDegat();
 	}
 	return degat_resultant;
 }

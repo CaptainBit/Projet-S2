@@ -8,11 +8,14 @@
 #include "..\Projectile\Projectile.h"
 #include "../Vec2.h"
 #include <cstdlib>
+#include <Qt>
+#include <QObject>
 
-#define POINTS_DEPLACEMENT 10
-#define VIE_MAX  20
+#define POINTS_DEPLACEMENT 200
+#define VIE_MAX  100
 
-class Joueur {
+class Joueur:public QObject {
+	Q_OBJECT
 private:
 	int vie;
 	Vec2 position;
@@ -26,21 +29,26 @@ public:
 	Vec2 getPosition();
 	int getTypePrjectile();
 	int getPointsDeplacement();
-	void setVie(int vie);
-	void setPosition(Vec2 position);
 	void setTypeProjectile(int type);
-	void setPointsDeplacement(int points);
 	int getPuissance();
 	int getAngle();
+
+	void setVie(int vie);
+	void setPosition(Vec2 position);
 	void setPuissance(int puissance);
 	void setAngle(int angle);
-
-	//Deplacer le tank(Positif ver la droit et negatif vers la gauche). Retourne s'il avait assez de point de deplacement
-	bool deplacer(int deplacement);
-	//Enleve le nombre de point de degat a la vie. Retourne si le tank est toujours en vie
+	void setPointsDeplacement(int points);
+	bool deplacer(int x, int y);
 	bool endomager(int degat);
 	Projectile tirer(float force, float angle);
 
+signals:
+	void signalVie(int vie);
+	void signalPuissance(int puissance);
+	void signalAngle(int angle);
+	void signalPointDeDeplacement(int point);
+	void signalDeplacer(int x,int y);
+	void signalTirer();
 };
 
 

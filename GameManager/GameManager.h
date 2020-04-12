@@ -10,7 +10,7 @@
 #include "../Projectile/Projectile.h"
 #include "Joueur.h"
 #include "../Terrain/Terrain.h"
-#include "../UI/UI.h"
+
 
 #define DEFAULT_SIZE Vec2(93,1)
 
@@ -21,15 +21,14 @@ private:
 	Joueur *joueur_un;			// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	Joueur *joueur_deux;		// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	//UI ui;
-
+	Terrain *terrain;
 	bool inGame = true;
 	bool tour = true;
 	Joueur *joueur_actif;
 	Joueur *joueur_cible;
-	UI *ui;
 	
 public:
-	GameManager();
+	GameManager(Terrain *terrain);
 	~GameManager();
 	void changer_tour();	//refresh le nombre de pts de deplacement du joueur actif
 	
@@ -37,11 +36,14 @@ public:
 	//Methodes lies a la gestion d evenements:
 	void tirer();			//Va probablement appeler getAngle et getPuissance de maniere consecutive
 
+
 	void start_game();
 	void en_jeux(char choice);
 	void end_game();
 	bool getStatus();
-
+	Joueur* getJoueur1();
+	Joueur* getJoueur2();
 };
+
 
 #endif //PROJET_GAMEMANAGER_H

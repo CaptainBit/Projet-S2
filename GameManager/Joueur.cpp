@@ -2,6 +2,7 @@
 // Created by fiset on 2020-02-11.
 //
 #include "Joueur.h"
+#include "Interface.h"
 
 Joueur::Joueur()
 {
@@ -34,12 +35,14 @@ int Joueur::getPointsDeplacement()
 void Joueur::setVie(int vie)
 {
 	this->vie = vie; 
+	signalVie(vie);
 }
 
 void Joueur::setPosition(Vec2 position)
 {
 	this->position.x = position.x;
 	this->position.y = position.y;
+	signalDeplacer(position.x,position.y);
 }
 
 void Joueur::setTypeProjectile(int type) 
@@ -50,15 +53,18 @@ void Joueur::setTypeProjectile(int type)
 void Joueur::setPointsDeplacement(int points) 
 {
 	pointsDeplacement = points; 
+	signalPointDeDeplacement(points);
 }
 
 //Deplacer le tank(Positif vers la droite et negatif vers la gauche). Retourne s'il avait assez de point de deplacement
-bool Joueur::deplacer(int deplacement)
+bool Joueur::deplacer(int x,int y)
 {
 	
-	if (pointsDeplacement - abs(deplacement) >= 0 && position.x + deplacement>=0 && position.x + deplacement <= 79) {
-		pointsDeplacement -= abs(deplacement);
-		position.x += deplacement;
+	if (pointsDeplacement - abs(x) >= 0 && position.x + x>=35 && position.x + x <= LONGUEUR_FENETRE-35) {
+		setPointsDeplacement(pointsDeplacement - abs(x));
+		position.x += x;
+		position.y = y;
+		signalDeplacer(position.x,position.y);
 		return 1;
 	}
 	return 0;
@@ -68,12 +74,14 @@ bool Joueur::deplacer(int deplacement)
 bool Joueur::endomager(int degat)
 {
 	vie -= degat;
+	signalVie(vie);
 	return (vie > 0);
 }
 
 Projectile Joueur::tirer(float angle, float force)
 {
 	Projectile projectile(position,angle, force);
+	signalTirer();
 	return projectile; 
 }
 int Joueur::getAngle() {
@@ -83,10 +91,14 @@ int Joueur::getPuissance() {
 	return puissance;
 }
 void Joueur::setPuissance(int puissance) {
-	if (puissance <= 50 && puissance>0)
+	if (puissance <= 50 && puissance > 0) {
 		this->puissance = puissance;
+		signalPuissance(puissance);
+	}
 }
 void Joueur::setAngle(int angle) {
-	if(angle>0 && angle<90)
+	if (angle > 0 && angle < 90) {
+		signalAngle(angle);
 		this->angle = angle;
+	}
 }

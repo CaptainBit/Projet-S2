@@ -1,0 +1,19 @@
+QProgressBar {
+     border: 2px solid black;
+     border-radius: 1px;
+     background-color: #c6c6c6;
+ }
+  QProgressBar#Health::chunk {
+     background-color: #0f9c20;
+ }
+ QProgressBar#Deplacement::chunk {
+     background-color: #ff6600;
+	 }
+ QProgressBar#Tank {
+     border: 1px solid black;
+     border-radius: 1px;
+     background-color: #c6c6c6;
+ }
+ QProgressBar#Tank::chunk {
+     background: qlineargradient( x1:0 y1:0, x2:10 y2:0, stop:0 #1be100, stop:1 #ff0d00);
+ }
