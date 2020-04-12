@@ -13,9 +13,9 @@ UI::UI() {
 	setWindowTitle("Tank War - P15");
 	
 	mainLayout = new QHBoxLayout;
-	
 	mainBackground = new QLabel;
-	mainBackground->setPixmap(QPixmap("./img/fond.png"));
+
+	mainBackground->setPixmap(QPixmap("./ressources/menu_tank.png").scaledToWidth(1280));
 
 	layout()->setContentsMargins(0, 0, 0, 0);
 	
