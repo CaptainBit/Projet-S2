@@ -50,6 +50,7 @@ signals:
 	void signalPointDeDeplacement(int point);
 	void signalDeplacer(int x,int y, int sens);
 	void signalTirer();
+	void selectAmmo(int type);
 };
 
 

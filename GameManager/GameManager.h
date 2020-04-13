@@ -47,6 +47,7 @@ public:
 signals:
 	void changementTour();
 	void changementTour(string);
+
 };
 
 

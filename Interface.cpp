@@ -11,22 +11,23 @@
 #include <QPainterPath>
 #include <QString>
 #include <QChar>
+#include <QFontDatabase>
 
 
 Interface::Interface() {
-	//QFile qss("style.qss");
-	//qss.open(QFile::ReadOnly);
-	//setStyleSheet(qss.readAll());
-	//qss.close();
+	QFontDatabase::addApplicationFont("./ressources/Junior-Bold.otf");
+	QFile qss("style.qss");
+	qss.open(QFile::ReadOnly);
+	setStyleSheet(qss.readAll());
+	qss.close();
 
-	//Déclaration des pointeurs
+	//Dï¿½claration des pointeurs
 	centralWidget = new QWidget();
 	barres = new QWidget();
 	barres->setObjectName("HUD");
 	zoneDeJeu= new QWidget();
 	disposition = new QVBoxLayout(centralWidget);
 	hud = new QGridLayout(barres);
-	QPalette palFond = palette();
 	QPalette palTank = palette();
 	tour = new QLabel();
 	tour->setObjectName("tourParTour");
@@ -42,7 +43,7 @@ Interface::Interface() {
 	tank2 = new Tank(1, zoneDeJeu);
 	terrain = new Terrain(LONGUEUR_FENETRE, (HAUTEUR_FENETRE * 1) / 5, (HAUTEUR_FENETRE * 4) / 5, zoneDeJeu);
 
-	//Déclaration des progfress bar de la vie des joueurs et de leurs points de déplacements
+	//Dï¿½claration des progfress bar de la vie des joueurs et de leurs points de dï¿½placements
 	health_p1 = new QProgressBar();
 	health_p2 = new QProgressBar();
 	deplacement_p1 = new QProgressBar();
@@ -69,7 +70,7 @@ Interface::Interface() {
 	health_p2->setFixedWidth(250);
 	health_p2->setTextVisible(false);
 
-	//Déplacement Player 1
+	//Dï¿½placement Player 1
 	deplacement_p1->setObjectName("Deplacement");
 	deplacement_p1->setOrientation(Qt::Horizontal);
 	deplacement_p1->setMaximum(POINTS_DEPLACEMENT);
@@ -79,7 +80,7 @@ Interface::Interface() {
 	deplacement_p1->setFixedWidth(250);
 	deplacement_p1->setTextVisible(false);
 
-	//Déplacement Player 2
+	//Dï¿½placement Player 2
 	deplacement_p2->setObjectName("Deplacement");
 	deplacement_p2->setOrientation(Qt::Horizontal);
 	deplacement_p2->setInvertedAppearance(true);
@@ -123,9 +124,7 @@ Interface::Interface() {
 	tank1->setPalette(palTank);
 	tank2->setAutoFillBackground(true);
 	tank2->setPalette(palTank);
-	palFond.setColor(QPalette::Background, Qt::blue);
-	centralWidget->setAutoFillBackground(true);
-	centralWidget->setPalette(palFond);
+	centralWidget->setObjectName("CentralWidget");
 
 	//Initialisation du GameManager
 	gm = new GameManager(terrain);
@@ -144,9 +143,12 @@ Interface::Interface() {
 	connect(tank1, SIGNAL(moved()), terrain, SLOT(update()));
 	connect(tank2, SIGNAL(moved()), terrain, SLOT(update()));
 	connect(gm, SIGNAL(changementTour(string)), this, SLOT(changerTour(string)));
+	connect(joueur1, SIGNAL(selectAmmo(int)), munitionsPlayer1, SLOT(select(int)));
+	connect(joueur2, SIGNAL(selectAmmo(int)), munitionsPlayer2, SLOT(select(int)));
 	gm->start_game();
 	connect(gm, SIGNAL(changementTour()), tank1, SLOT(affichageJauge()));
 	connect(gm, SIGNAL(changementTour()), tank2, SLOT(affichageJauge()));
+	
 	
 	//Initialisation du centralWidget
 	disposition->setMargin(0);
@@ -163,77 +165,80 @@ void Interface::keyPressEvent(QKeyEvent* event) {
 }
 void Interface::changerTour(string texte) {
 	tour->setText(QString::fromStdString(texte));
+	if (texte == "JOUEUR 1")
+		tour->setStyleSheet("border: 5px solid #4e9a06");
+	else tour->setStyleSheet("border: 5px solid #cd002a");;
 }
 
-TankApp::TankApp(int &argc, char **argv)
-	:QApplication(argc, argv)
-{
-	mainWindow = new QMainWindow;
-	CentralWidget = new QWidget;
-
+TankApp::TankApp(int &argc, char **argv)
+	:QApplication(argc, argv)
+{
+	mainWindow = new QMainWindow;
+	CentralWidget = new QWidget;
+
 	mainWindow->setFixedSize(1280, 720);
-	mainWindow->setWindowTitle("Tank War - P15");
-
-	setupMenu();
-	//setupGame();
-
-	exec();
-}
-
-TankApp::~TankApp() {
-	delete CentralWidget;
-	delete mainWindow;
-}
-
-void TankApp::setupMenu() {
-	menu = new Menu();
-
-	mainWindow->setCentralWidget(menu);
-
-	QPixmap bkgnd("./Images/menu_tank.png");
-	bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
-	QPalette palette;
-	palette.setBrush(QPalette::Window, bkgnd);
-
-	music = new QMediaPlayer;
-	music->setMedia(QUrl::fromLocalFile("ressources/play_2.wav"));
-	music->play();
-
-	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(play()));
-	connect(menu->exit_button, SIGNAL(clicked()), this, SLOT(quit()));
-	connect(menu->volumeSlider, SIGNAL(valueChanged(int)), music, SLOT(setVolume(int)));
-
-
-	mainWindow->setPalette(palette);
-	mainWindow->show();
-
-}
-
-void TankApp::setupGame() {
-	game = new Interface;
-
-	mainWindow->setCentralWidget(game);
-
+	mainWindow->setWindowTitle("Tank War - P15");
+
+	setupMenu();
+	//setupGame();
+
+	exec();
+}
+
+TankApp::~TankApp() {
+	delete CentralWidget;
+	delete mainWindow;
+}
+
+void TankApp::setupMenu() {
+	menu = new Menu();
+
+	mainWindow->setCentralWidget(menu);
+
+	QPixmap bkgnd("./Images/menu_tank.png");
+	bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
+	QPalette palette;
+	palette.setBrush(QPalette::Window, bkgnd);
+
+	music = new QMediaPlayer;
+	music->setMedia(QUrl::fromLocalFile("ressources/play_2.wav"));
+	music->play();
+
+	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(play()));
+	connect(menu->exit_button, SIGNAL(clicked()), this, SLOT(quit()));
+	connect(menu->volumeSlider, SIGNAL(valueChanged(int)), music, SLOT(setVolume(int)));
+
+
+	mainWindow->setPalette(palette);
+	mainWindow->show();
+
+}
+
+void TankApp::setupGame() {
+	game = new Interface;
+
+	mainWindow->setCentralWidget(game);
+
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
 	mainWindow->setStyleSheet(qss.readAll());
-	qss.close();
-
-	mainWindow->show();
-}
-
-Menu::Menu() 
-{
-	//Declaration des pointeurs
-
-	mainLayout = new QGridLayout;
-	setLayout(mainLayout);
-	play_button = new QPushButton("JOUER");
-	exit_button = new QPushButton("SORTIR");
-	volumeSlider = new QSlider(Qt::Horizontal, this);
-
-
-	play_button->setFixedSize(70, 30);
+	qss.close();
+
+	mainWindow->show();
+}
+
+Menu::Menu() 
+{
+	//Declaration des pointeurs
+
+	mainLayout = new QGridLayout;
+	setLayout(mainLayout);
+	play_button = new QPushButton("JOUER");
+	exit_button = new QPushButton("SORTIR");
+	volumeSlider = new QSlider(Qt::Horizontal, this);
+
+
+	play_button->setFixedSize(70, 30);
 	exit_button->setFixedSize(70, 30);
 
 	volumeSlider->setFixedWidth(100);
@@ -242,26 +247,26 @@ Menu::Menu()
 
 
 	//Set background image
-
-
-	mainLayout->addWidget(volumeSlider, 1, 0, Qt::AlignRight);
-	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
-	mainLayout->addWidget(exit_button, 3, 0, Qt::AlignCenter);
-
-}
-
-Menu::~Menu() {
-	delete play_button;
-	delete exit_button;
-	delete volumeSlider;
-	delete mainLayout;
-}
-
-void TankApp::play() {
-	setupGame();
-}
-
-
-void TankApp::quit() {
-	exit(0);
+
+
+	mainLayout->addWidget(volumeSlider, 1, 0, Qt::AlignRight);
+	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
+	mainLayout->addWidget(exit_button, 3, 0, Qt::AlignCenter);
+
+}
+
+Menu::~Menu() {
+	delete play_button;
+	delete exit_button;
+	delete volumeSlider;
+	delete mainLayout;
+}
+
+void TankApp::play() {
+	setupGame();
+}
+
+
+void TankApp::quit() {
+	exit(0);
 }

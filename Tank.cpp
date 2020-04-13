@@ -41,8 +41,8 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	jauge->setFixedHeight(picture_body.height()+20);
 	jauge->setFixedWidth(int(picture_body.width() / 4));
 	jauge->setMaximum(50);
-	jauge->setMinimum(1);
-	jauge->setValue(0);
+	jauge->setMinimum(0);
+	jauge->setValue(1);
 	jauge->setOrientation(Qt::Vertical);
 	jauge->setTextVisible(false);
 
