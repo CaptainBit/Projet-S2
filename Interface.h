@@ -4,6 +4,8 @@
 #include <qapplication.h>
 #include <qpushbutton.h>
 #include <QSound>
+#include <QMediaPlayer>
+#include <qslider.h>
 
 #include <QMainWindow>
 #include <QWidget>
@@ -64,11 +66,8 @@ public:
 	QGridLayout* mainLayout;
 	QPushButton* play_button;
 	QPushButton* exit_button;
-	QRadioButton* mute_button;
-	QSound music;
-
-
-
+	QSlider* volumeSlider;
+	
 };
 
 class TankApp : public QApplication
@@ -85,12 +84,14 @@ public:
 	QWidget* CentralWidget;
 	Menu *menu;
 	Interface *game;
+	QMediaPlayer* music;
 
 public slots:
 	void play();
 	void quit();
-	void mute();
+
 
 };
+
 
 #endif

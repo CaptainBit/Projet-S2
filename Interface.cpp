@@ -195,9 +195,14 @@ void TankApp::setupMenu() {
 	QPalette palette;
 	palette.setBrush(QPalette::Window, bkgnd);
 
+	music = new QMediaPlayer;
+	music->setMedia(QUrl::fromLocalFile("ressources/play_2.wav"));
+	music->play();
+
 	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(play()));
 	connect(menu->exit_button, SIGNAL(clicked()), this, SLOT(quit()));
-	connect(menu->mute_button, SIGNAL(clicked()), this, SLOT(mute()));
+	connect(menu->volumeSlider, SIGNAL(valueChanged(int)), music, SLOT(setVolume(int)));
+
 
 	mainWindow->setPalette(palette);
 	mainWindow->show();
@@ -217,8 +222,7 @@ void TankApp::setupGame() {
 	mainWindow->show();
 }
 
-Menu::Menu() :
-	music("ressources/play_2.wav")
+Menu::Menu() 
 {
 	//Declaration des pointeurs
 
@@ -226,32 +230,30 @@ Menu::Menu() :
 	setLayout(mainLayout);
 	play_button = new QPushButton("JOUER");
 	exit_button = new QPushButton("SORTIR");
-	mute_button = new QRadioButton("Mute");
+	volumeSlider = new QSlider(Qt::Horizontal, this);
 
 
 	play_button->setFixedSize(70, 30);
 	exit_button->setFixedSize(70, 30);
-	mute_button->setFixedSize(70, 30);
 
-	//connect(play_button, SIGNAL(clicked()), this, SLOT(play()));
-	//connect(exit_button, SIGNAL(clicked()), this, SLOT(quit()));
-	//connect(mute_button, SIGNAL(clicked()), this, SLOT(mute()));
+	volumeSlider->setFixedWidth(100);
+	volumeSlider->setRange(0, 100);
+	volumeSlider->setValue(100);
+
 
 	//Set background image
 
 
-	mainLayout->addWidget(mute_button, 1, 0, Qt::AlignRight);
+	mainLayout->addWidget(volumeSlider, 1, 0, Qt::AlignRight);
 	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
 	mainLayout->addWidget(exit_button, 3, 0, Qt::AlignCenter);
 
-	music.setLoops(-1);
-	music.play();
 }
 
 Menu::~Menu() {
 	delete play_button;
 	delete exit_button;
-	delete mute_button;
+	delete volumeSlider;
 	delete mainLayout;
 }
 
@@ -259,8 +261,6 @@ void TankApp::play() {
 	setupGame();
 }
 
-void TankApp::mute() {
-}
 
 void TankApp::quit() {
 	exit(0);
