@@ -77,8 +77,8 @@ public:
 	TankApp(int &argc, char **argv);
 	~TankApp();
 
-	void setupMenu();
-	void setupGame();
+	
+	
 
 	QMainWindow* mainWindow;
 	QWidget* CentralWidget;
@@ -89,6 +89,8 @@ public:
 public slots:
 	void play();
 	void quit();
+	void setupGame();
+	void setupMenu();
 
 
 };

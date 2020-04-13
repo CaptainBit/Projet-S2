@@ -15,18 +15,12 @@
 
 
 Interface::Interface() {
-	QFontDatabase::addApplicationFont("./ressources/Junior-Bold.otf");
-	QFile qss("style.qss");
-	qss.open(QFile::ReadOnly);
-	setStyleSheet(qss.readAll());
-	qss.close();
 
 	//D�claration des pointeurs
-	centralWidget = new QWidget();
 	barres = new QWidget();
 	barres->setObjectName("HUD");
 	zoneDeJeu= new QWidget();
-	disposition = new QVBoxLayout(centralWidget);
+	disposition = new QVBoxLayout(this);
 	hud = new QGridLayout(barres);
 	QPalette palTank = palette();
 	tour = new QLabel();
@@ -124,7 +118,7 @@ Interface::Interface() {
 	tank1->setPalette(palTank);
 	tank2->setAutoFillBackground(true);
 	tank2->setPalette(palTank);
-	centralWidget->setObjectName("CentralWidget");
+	this->setObjectName("CentralWidget");
 
 	//Initialisation du GameManager
 	gm = new GameManager(terrain);
@@ -170,6 +164,7 @@ void Interface::changerTour(string texte) {
 	else tour->setStyleSheet("border: 5px solid #cd002a");;
 }
 
+<<<<<<< Updated upstream
 TankApp::TankApp(int &argc, char **argv)
 	:QApplication(argc, argv)
 {
@@ -219,26 +214,130 @@ void TankApp::setupGame() {
 
 	mainWindow->setCentralWidget(game);
 
+=======
+TankApp::TankApp(int &argc, char **argv)
+
+	:QApplication(argc, argv)
+
+{
+	
+
+	mainWindow = new QMainWindow;
+>>>>>>> Stashed changes
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
 	mainWindow->setStyleSheet(qss.readAll());
-	qss.close();
-
-	mainWindow->show();
-}
-
-Menu::Menu() 
-{
-	//Declaration des pointeurs
-
-	mainLayout = new QGridLayout;
-	setLayout(mainLayout);
-	play_button = new QPushButton("JOUER");
-	exit_button = new QPushButton("SORTIR");
-	volumeSlider = new QSlider(Qt::Horizontal, this);
-
-
-	play_button->setFixedSize(70, 30);
+	qss.close();
+
+
+
+	mainWindow->setFixedSize(1280, 720);
+	mainWindow->setWindowTitle("Tank War - P15");
+
+
+
+	setupMenu();
+
+
+	mainWindow->show();
+
+	exec();
+
+}
+
+
+
+TankApp::~TankApp() {
+
+
+	delete mainWindow;
+
+}
+
+
+
+void TankApp::setupMenu() {
+
+	menu = new Menu();
+	menu->setFocus();
+
+
+
+	mainWindow->setCentralWidget(menu);
+
+
+
+	//QPixmap bkgnd("./Images/menu_tank.png");
+
+	//bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
+
+	//QPalette palette;
+
+	//palette.setBrush(QPalette::Window, bkgnd);
+
+
+
+	music = new QMediaPlayer;
+
+	music->setMedia(QUrl::fromLocalFile("ressources/play_2.wav"));
+
+	music->play();
+
+
+
+	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(setupGame()));
+
+	connect(menu->exit_button, SIGNAL(clicked()), this, SLOT(quit()));
+
+	connect(menu->volumeSlider, SIGNAL(valueChanged(int)), music, SLOT(setVolume(int)));
+	//mainWindow->setPalette(palette);
+
+
+
+
+
+
+}
+
+
+
+void TankApp::setupGame() {
+
+	game = new Interface;
+
+
+
+	mainWindow->setCentralWidget(game);
+
+
+
+
+}
+
+
+
+Menu::Menu() 
+
+{
+
+	//Declaration des pointeurs
+
+
+
+	mainLayout = new QGridLayout(this);
+
+	play_button = new QPushButton("JOUER");
+
+	exit_button = new QPushButton("SORTIR");
+
+	volumeSlider = new QSlider(Qt::Horizontal, this);
+
+
+
+
+
+	play_button->setFixedSize(70, 30);
+
 	exit_button->setFixedSize(70, 30);
 
 	volumeSlider->setFixedWidth(100);
@@ -247,26 +346,48 @@ Menu::Menu()
 
 
 	//Set background image
-
-
-	mainLayout->addWidget(volumeSlider, 1, 0, Qt::AlignRight);
-	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
-	mainLayout->addWidget(exit_button, 3, 0, Qt::AlignCenter);
-
-}
-
-Menu::~Menu() {
-	delete play_button;
-	delete exit_button;
-	delete volumeSlider;
-	delete mainLayout;
-}
-
-void TankApp::play() {
-	setupGame();
-}
-
-
-void TankApp::quit() {
-	exit(0);
+
+
+
+
+	mainLayout->addWidget(volumeSlider, 1, 0, Qt::AlignRight);
+
+	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
+
+	mainLayout->addWidget(exit_button, 3, 0, Qt::AlignCenter);
+
+
+
+}
+
+
+
+Menu::~Menu() {
+
+	delete play_button;
+
+	delete exit_button;
+
+	delete volumeSlider;
+
+	delete mainLayout;
+
+}
+
+
+
+void TankApp::play() {
+
+	setupGame();
+
+}
+
+
+
+
+
+void TankApp::quit() {
+
+	exit(0);
+
 }

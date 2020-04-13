@@ -1,3 +1,8 @@
+Menu {
+background : url(./Images/menu_tank.png) repeat;
+background-color: black;
+}
+
 QProgressBar {
      border: 2px solid black;
      border-radius: 1px;
