@@ -4,9 +4,8 @@
 #include <QApplication>
 #include "interface.h"
 int main (int argc, char ** argv) {
-	QApplication app(argc,argv);
-	
-	Interface inter;
-	inter.show();
-	return app.exec();
+
+	new TankApp(argc, argv);
+
+	return 0;
 }

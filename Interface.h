@@ -1,6 +1,10 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
+#include <qapplication.h>
+#include <qpushbutton.h>
+#include <QSound>
+
 #include <QMainWindow>
 #include <QWidget>
 #include <QProgressBar>
@@ -20,7 +24,7 @@
 #define HAUTEUR_FENETRE  720
 #define LONGUEUR_FENETRE  1280
 
-class Interface :public QMainWindow {
+class Interface :public QWidget {
 	Q_OBJECT
 private:
 	Joueur* joueur1;
@@ -48,6 +52,45 @@ public:
 	void keyPressEvent(QKeyEvent* event);
 public slots:
 	void changerTour(string);
+};
+
+class Menu : public QWidget
+{
+	Q_OBJECT
+public:
+	Menu();
+	~Menu();
+
+	QGridLayout* mainLayout;
+	QPushButton* play_button;
+	QPushButton* exit_button;
+	QRadioButton* mute_button;
+	QSound music;
+
+
+
+};
+
+class TankApp : public QApplication
+{
+	Q_OBJECT
+public:
+	TankApp(int &argc, char **argv);
+	~TankApp();
+
+	void setupMenu();
+	void setupGame();
+
+	QMainWindow* mainWindow;
+	QWidget* CentralWidget;
+	Menu *menu;
+	Interface *game;
+
+public slots:
+	void play();
+	void quit();
+	void mute();
+
 };
 
 #endif

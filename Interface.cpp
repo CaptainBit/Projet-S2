@@ -14,10 +14,10 @@
 
 
 Interface::Interface() {
-	QFile qss("style.qss");
-	qss.open(QFile::ReadOnly);
-	setStyleSheet(qss.readAll());
-	qss.close();
+	//QFile qss("style.qss");
+	//qss.open(QFile::ReadOnly);
+	//setStyleSheet(qss.readAll());
+	//qss.close();
 
 	//Déclaration des pointeurs
 	centralWidget = new QWidget();
@@ -150,7 +150,7 @@ Interface::Interface() {
 	
 	//Initialisation du centralWidget
 	disposition->setMargin(0);
-	setCentralWidget(centralWidget);
+	//setCentralWidget(centralWidget);
 }
 Interface::~Interface() {
 
@@ -163,4 +163,105 @@ void Interface::keyPressEvent(QKeyEvent* event) {
 }
 void Interface::changerTour(string texte) {
 	tour->setText(QString::fromStdString(texte));
+}
+
+TankApp::TankApp(int &argc, char **argv)
+	:QApplication(argc, argv)
+{
+	mainWindow = new QMainWindow;
+	CentralWidget = new QWidget;
+
+	mainWindow->setFixedSize(1280, 720);
+	mainWindow->setWindowTitle("Tank War - P15");
+
+	setupMenu();
+	//setupGame();
+
+	exec();
+}
+
+TankApp::~TankApp() {
+	delete CentralWidget;
+	delete mainWindow;
+}
+
+void TankApp::setupMenu() {
+	menu = new Menu();
+
+	mainWindow->setCentralWidget(menu);
+
+	QPixmap bkgnd("./Images/menu_tank.png");
+	bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
+	QPalette palette;
+	palette.setBrush(QPalette::Window, bkgnd);
+
+	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(play()));
+	connect(menu->exit_button, SIGNAL(clicked()), this, SLOT(quit()));
+	connect(menu->mute_button, SIGNAL(clicked()), this, SLOT(mute()));
+
+	mainWindow->setPalette(palette);
+	mainWindow->show();
+
+}
+
+void TankApp::setupGame() {
+	game = new Interface;
+
+	mainWindow->setCentralWidget(game);
+
+	QFile qss("style.qss");
+	qss.open(QFile::ReadOnly);
+	mainWindow->setStyleSheet(qss.readAll());
+	qss.close();
+
+	mainWindow->show();
+}
+
+Menu::Menu() :
+	music("ressources/play_2.wav")
+{
+	//Declaration des pointeurs
+
+	mainLayout = new QGridLayout;
+	setLayout(mainLayout);
+	play_button = new QPushButton("JOUER");
+	exit_button = new QPushButton("SORTIR");
+	mute_button = new QRadioButton("Mute");
+
+
+	play_button->setFixedSize(70, 30);
+	exit_button->setFixedSize(70, 30);
+	mute_button->setFixedSize(70, 30);
+
+	//connect(play_button, SIGNAL(clicked()), this, SLOT(play()));
+	//connect(exit_button, SIGNAL(clicked()), this, SLOT(quit()));
+	//connect(mute_button, SIGNAL(clicked()), this, SLOT(mute()));
+
+	//Set background image
+
+
+	mainLayout->addWidget(mute_button, 1, 0, Qt::AlignRight);
+	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
+	mainLayout->addWidget(exit_button, 3, 0, Qt::AlignCenter);
+
+	music.setLoops(-1);
+	music.play();
+}
+
+Menu::~Menu() {
+	delete play_button;
+	delete exit_button;
+	delete mute_button;
+	delete mainLayout;
+}
+
+void TankApp::play() {
+	setupGame();
+}
+
+void TankApp::mute() {
+}
+
+void TankApp::quit() {
+	exit(0);
 }
