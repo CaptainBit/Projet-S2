@@ -6,7 +6,7 @@
 
 Joueur::Joueur()
 {
-	puissance = 0;
+	puissance = 1;
 	setVie(VIE_MAX);
 	setPointsDeplacement(POINTS_DEPLACEMENT);
 	setAngle(1);
@@ -48,6 +48,7 @@ void Joueur::setPosition(Vec2 position)
 void Joueur::setTypeProjectile(int type) 
 {
 	typeProjectile = type; 
+	selectAmmo(type);
 }
 
 void Joueur::setPointsDeplacement(int points) 
