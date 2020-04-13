@@ -52,6 +52,7 @@ public:
 	Interface();
 	~Interface();
 	void keyPressEvent(QKeyEvent* event);
+	void paintEvent(QPaintEvent *);
 public slots:
 	void changerTour(string);
 };
@@ -67,6 +68,7 @@ public:
 	QPushButton* play_button;
 	QPushButton* exit_button;
 	QSlider* volumeSlider;
+	void paintEvent(QPaintEvent *);
 	
 };
 
@@ -85,6 +87,8 @@ public:
 	Menu *menu;
 	Interface *game;
 	QMediaPlayer* music;
+	QWidget *control;
+	QGridLayout *layoutControl;
 
 public slots:
 	void play();

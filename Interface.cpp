@@ -12,6 +12,9 @@
 #include <QString>
 #include <QChar>
 #include <QFontDatabase>
+#include <Qt>
+#include <QStatusBar>
+#include <QStyleOption>
 
 
 Interface::Interface() {
@@ -21,12 +24,13 @@ Interface::Interface() {
 	barres->setObjectName("HUD");
 	zoneDeJeu= new QWidget();
 	disposition = new QVBoxLayout(this);
+	disposition->setMargin(0);
 	hud = new QGridLayout(barres);
 	QPalette palTank = palette();
 	tour = new QLabel();
 	tour->setObjectName("tourParTour");
 
-	//Taille des layouts du centralWidget
+	//Taille des layouts
 	zoneDeJeu->setFixedHeight((HAUTEUR_FENETRE * 4) / 5);
 	zoneDeJeu->setFixedWidth(LONGUEUR_FENETRE);
 	barres->setFixedHeight(HAUTEUR_FENETRE / 5);
@@ -99,7 +103,6 @@ Interface::Interface() {
 	hud->addWidget(tour, 1,1);
 	hud->setVerticalSpacing(10);
 	hud->setAlignment(tour, Qt::AlignCenter);
-	
 	hud->setAlignment(munitionsPlayer1, Qt::AlignLeft);
 	hud->setAlignment(munitionsPlayer2, Qt::AlignRight);
 	hud->setAlignment(health_p1, Qt::AlignLeft);
@@ -118,12 +121,14 @@ Interface::Interface() {
 	tank1->setPalette(palTank);
 	tank2->setAutoFillBackground(true);
 	tank2->setPalette(palTank);
-	this->setObjectName("CentralWidget");
+	
 
 	//Initialisation du GameManager
 	gm = new GameManager(terrain);
 	joueur1 = gm->getJoueur1();
 	joueur2 = gm->getJoueur2();
+
+	//Connect de tous les composantes
 	connect(joueur1, SIGNAL(signalVie(int)), health_p1, SLOT(setValue(int)));
 	connect(joueur2, SIGNAL(signalVie(int)), health_p2, SLOT(setValue(int)));
 	connect(joueur1, SIGNAL(signalDeplacer(int, int,int)), tank1, SLOT(updatePosition(int, int,int)));
@@ -134,8 +139,6 @@ Interface::Interface() {
 	connect(joueur2, SIGNAL(signalPuissance(int)), tank2, SLOT(updateJauge(int)));
 	connect(joueur1, SIGNAL(signalAngle(int)), tank1, SLOT(updateAngle(int)));
 	connect(joueur2, SIGNAL(signalAngle(int)), tank2, SLOT(updateAngle(int)));
-	connect(tank1, SIGNAL(moved()), terrain, SLOT(update()));
-	connect(tank2, SIGNAL(moved()), terrain, SLOT(update()));
 	connect(gm, SIGNAL(changementTour(string)), this, SLOT(changerTour(string)));
 	connect(joueur1, SIGNAL(selectAmmo(int)), munitionsPlayer1, SLOT(select(int)));
 	connect(joueur2, SIGNAL(selectAmmo(int)), munitionsPlayer2, SLOT(select(int)));
@@ -144,9 +147,7 @@ Interface::Interface() {
 	connect(gm, SIGNAL(changementTour()), tank2, SLOT(affichageJauge()));
 	
 	
-	//Initialisation du centralWidget
-	disposition->setMargin(0);
-	//setCentralWidget(centralWidget);
+	
 }
 Interface::~Interface() {
 
@@ -163,6 +164,13 @@ void Interface::changerTour(string texte) {
 		tour->setStyleSheet("border: 5px solid #4e9a06");
 	else tour->setStyleSheet("border: 5px solid #cd002a");;
 }
+void Interface::paintEvent(QPaintEvent *)
+{
+	QStyleOption opt;
+	opt.init(this);
+	QPainter p(this);
+	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
 
 
 TankApp::TankApp(int &argc, char **argv)
@@ -175,20 +183,33 @@ TankApp::TankApp(int &argc, char **argv)
 	mainWindow = new QMainWindow;
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
-	mainWindow->setStyleSheet(qss.readAll());
+	this->setStyleSheet(qss.readAll());
 	qss.close();
 
 
-
-	mainWindow->setFixedSize(1280, 720);
+	QStatusBar controlBar;
+	controlBar.setSizeGripEnabled(false);
+	QWidget controlWidget;
+	QHBoxLayout controlLayout(&controlWidget);
+	controlLayout.setMargin(5);
+	QLabel control("A & D: Déplacement   W & S: Changer l'angle du canon   F & R: Changer la puissance   E: Tirer  1,2,3 : Type de projectile");
+	control.setObjectName("Control");
+	controlWidget.setObjectName("Control");
+	controlLayout.addWidget(&control,1,Qt::AlignCenter);
+	controlBar.addWidget(&controlWidget,1);
+	mainWindow->setStatusBar(&controlBar);
+	
+	
+	mainWindow->setFixedSize(LONGUEUR_FENETRE, HAUTEUR_FENETRE);
 	mainWindow->setWindowTitle("Tank War - P15");
+	
 
 
-
-	setupMenu();
-
+	
+	
 
 	mainWindow->show();
+	setupMenu();
 
 	exec();
 
@@ -208,30 +229,16 @@ TankApp::~TankApp() {
 void TankApp::setupMenu() {
 
 	menu = new Menu();
-	menu->setFocus();
-
-
+	
 
 	mainWindow->setCentralWidget(menu);
-
-
-
-	//QPixmap bkgnd("./Images/menu_tank.png");
-
-	//bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
-
-	//QPalette palette;
-
-	//palette.setBrush(QPalette::Window, bkgnd);
-
-
-
 	music = new QMediaPlayer;
 
-	music->setMedia(QUrl::fromLocalFile("ressources/play_2.wav"));
+	music->setMedia(QUrl::fromLocalFile("Ressources/sons/play_2.wav"));
 
 	music->play();
-
+	
+	music->setVolume(0);
 
 
 	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(setupGame()));
@@ -253,11 +260,12 @@ void TankApp::setupMenu() {
 void TankApp::setupGame() {
 
 	game = new Interface;
-
-
+	this->setObjectName("CentralWidget");
 
 	mainWindow->setCentralWidget(game);
-
+	mainWindow->setObjectName("Game");
+	game->setFocus();
+	game->show();
 
 
 
@@ -321,6 +329,14 @@ Menu::~Menu() {
 
 	delete mainLayout;
 
+}
+
+void Menu::paintEvent(QPaintEvent *)
+{
+	QStyleOption opt;
+	opt.init(this);
+	QPainter p(this);
+	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 

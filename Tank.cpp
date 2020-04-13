@@ -1,17 +1,14 @@
 #include "tank.h"
-#include "Interface.h"
-#include <QHBoxLayout>
-#include <QMatrix>
-#include <QStackedLayout>
-#include <QPainter>
+#include "Interface.h"//Inclus pour la constante LONGUEUR_FENETRE
+
+
 Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	//Initialisation Layout
-	QHBoxLayout *layout = new QHBoxLayout(this);
-	QWidget *tankEtCannon = new QWidget();
-	QStackedLayout *stackedLayout=new QStackedLayout(tankEtCannon);
+	layout = new QHBoxLayout(this);
+	tankEtCannon = new QWidget();
+	stackedLayout=new QStackedLayout(tankEtCannon);
 	stackedLayout->setStackingMode(QStackedLayout::StackAll);
 	layout->setMargin(0);
-	stackedLayout->setMargin(0);
 	int spacing = 10;
 	sensTank= sens;
 
@@ -53,6 +50,7 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	this->setFixedWidth((picture_body.width() * 5/ 4) + spacing);
 	layout->setSpacing(spacing);
 
+	//Ajout de la jauge avant ou apres le tank dependament du sens du tank
 	if (sens == -1)
 		layout->addWidget(jauge);
 	layout->addWidget(tankEtCannon);
@@ -65,11 +63,20 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 
 }
 Tank::~Tank() {
-
+	delete jauge;
+	delete cannon;
+	delete body;
+	delete stackedLayout;
+	delete tankEtCannon;
+	delete layout;
 }
+
+//Update de la jauge de puissance
 void Tank::updateJauge(int puissance) {
 	jauge->setValue(puissance);
 }
+
+//Afficher la jauge de puissance ou non dependament du tour
 void Tank::affichageJauge() {
 	if (jauge->isVisible())
 		jauge->setVisible(false);
@@ -77,6 +84,7 @@ void Tank::affichageJauge() {
 		jauge->setVisible(true);
 }
 
+//Update la position du tank et du cannon
 void Tank::updatePosition(int x,int y, int sens) {
 	QMatrix m;
 	this->move(x, y);
@@ -88,15 +96,20 @@ void Tank::updatePosition(int x,int y, int sens) {
 	body->setPixmap(picture_body.transformed(m));
 
 }
+
+//Change l'angle du canon
 void Tank::updateAngle(int angle) {
 	QMatrix rm;
-	rm.rotate(-angle);
+	rm.rotate(sensTank*angle);
 	cannon->setPixmap(picture_cannon.transformed(rm));
 }
+
+//Override de la fonction move incluant le offset du tank
 void Tank::move(int x, int y) {
 	QWidget::move(x - this->width() / 2, y - this->height());
 }
 
+//Retourne le sens du tank -1 pour vers la droite et 1 pour vers la gauche
 int Tank::getSensTank() {
 	return sensTank;
 }
