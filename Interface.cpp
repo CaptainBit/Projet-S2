@@ -190,7 +190,7 @@ void TankApp::setupMenu() {
 
 	mainWindow->setCentralWidget(menu);
 
-	QPixmap bkgnd("./Images/menu_tank.png");
+	QPixmap bkgnd("./ressources/menu_tank.png");
 	bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
 	QPalette palette;
 	palette.setBrush(QPalette::Window, bkgnd);
