@@ -1,3 +1,7 @@
+/*
+Classe de gestion du UI du tank et de sa jauge de puissance
+*/
+
 #ifndef TANK_H
 #define TANK_H
 #include <QWidget>
@@ -28,7 +32,7 @@ private:
 	QProgressBar *jauge; //Jauge de puissance
 	int sensTank; //Sens dans lequel le tank commence
 public:
-	Tank(int sens,QWidget *parent=NULL);
+	Tank(int sens, QWidget *parent = NULL);
 	~Tank();
 	int getSensTank(); //Retourne le sens du tank -1 pour vers la droite et 1 pour vers la gauche
 public slots:

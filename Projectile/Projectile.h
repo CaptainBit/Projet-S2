@@ -1,6 +1,6 @@
-//
-// Created by fiset on 2020-02-11.
-//
+/*
+Classes de gestion des différents projectiles
+*/
 
 #ifndef PROJET_PROJECTILE_H
 #define PROJET_PROJECTILE_H
@@ -10,14 +10,15 @@
 
 #define DEGAT_DEFAULT 10;
 
+//Projectile de base
 class Projectile {
 protected:
-	Parabole trajectoire;
-	int degat;
+	Parabole trajectoire;//Trajectoire du projectile
+	int degat;// Dégat du projectile
 	int buffer = 12;		// LARGEUR DU TANK - Verifier avec Qt
 public:
 	Projectile();		// Besoin d un default constructor pour instancier les classe enfant
-	Projectile(Vec2 position,float force,float angle);
+	Projectile(Vec2 position, float force, float angle);
 	Parabole getTrajectoire();
 	int getDegat();
 	void setParabole(Parabole trajectoire);
@@ -35,7 +36,7 @@ public:
 };
 
 
-class Buckshot: public Projectile {
+class Buckshot : public Projectile {
 protected:
 	Projectile bullets[12];		// This array stores the offset from center impact each bullet of the buckshot have
 public:

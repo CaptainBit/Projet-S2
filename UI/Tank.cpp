@@ -2,15 +2,15 @@
 #include "Interface.h"//Inclus pour la constante LONGUEUR_FENETRE
 
 
-Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
+Tank::Tank(int sens, QWidget * parent) :QWidget(parent) {
 	//Initialisation Layout
 	layout = new QHBoxLayout(this);
 	tankEtCannon = new QWidget();
-	stackedLayout=new QStackedLayout(tankEtCannon);
+	stackedLayout = new QStackedLayout(tankEtCannon);
 	stackedLayout->setStackingMode(QStackedLayout::StackAll);
 	layout->setMargin(0);
 	int spacing = 10;
-	sensTank= sens;
+	sensTank = sens;
 
 	//Creation Tank
 	body = new QLabel();
@@ -25,7 +25,7 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 		picture_body.load(RED_BODY_PATH);
 		picture_cannon.load(RED_CANNON_PATH);
 		matrice.scale(-1, 1);
-	
+
 	}
 	picture_cannon = picture_cannon.transformed(matrice);
 	picture_body = picture_body.transformed(matrice);
@@ -35,7 +35,7 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	//Creation Jauge de puissance
 	jauge = new QProgressBar();
 	jauge->setObjectName("Tank");
-	jauge->setFixedHeight(picture_body.height()+20);
+	jauge->setFixedHeight(picture_body.height() + 20);
 	jauge->setFixedWidth(int(picture_body.width() / 4));
 	jauge->setMaximum(50);
 	jauge->setMinimum(0);
@@ -47,7 +47,7 @@ Tank::Tank(int sens,QWidget * parent):QWidget(parent) {
 	stackedLayout->addWidget(body);
 	stackedLayout->addWidget(cannon);
 	this->setFixedHeight(picture_body.height() + 20);
-	this->setFixedWidth((picture_body.width() * 5/ 4) + spacing);
+	this->setFixedWidth((picture_body.width() * 5 / 4) + spacing);
 	layout->setSpacing(spacing);
 
 	//Ajout de la jauge avant ou apres le tank dependament du sens du tank
@@ -85,7 +85,7 @@ void Tank::affichageJauge() {
 }
 
 //Update la position du tank et du cannon
-void Tank::updatePosition(int x,int y, int sens) {
+void Tank::updatePosition(int x, int y, int sens) {
 	QMatrix m;
 	this->move(x, y);
 	if (sensTank * sens > 0)

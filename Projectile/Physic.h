@@ -1,6 +1,6 @@
-//
-// Created by fiset on 2020-02-11.
-//
+/*
+Classe de gestion de la physique des projectiles
+*/
 
 #ifndef PROJET_PHYSIC_H
 #define PROJET_PHYSIC_H

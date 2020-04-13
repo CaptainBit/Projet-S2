@@ -1,6 +1,6 @@
-//
-// Created by fiset on 2020-02-11.
-//
+/*
+Classe de gestion de tous les informations d'un joueur
+*/
 
 
 #ifndef PROJET_JOUEUR_H

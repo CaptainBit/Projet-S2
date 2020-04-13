@@ -1,6 +1,6 @@
-//
-// Created by fiset on 2020-02-11.
-//
+/*
+Structure de coordonnées de l'application
+*/
 
 #ifndef PROJET_COORD_H
 #define PROJET_COORD_H
