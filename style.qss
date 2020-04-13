@@ -1,28 +1,58 @@
-Menu {
-background : url(./Images/menu_tank.png) repeat;
-background-color: black;
-}
+/*------Style Menu------*/
 
-QProgressBar {
+ Menu {
+	background : url(./Ressources/Images/menu_tank.png);
+ }
+
+
+/*------Style Instructions des controls------*/
+
+ QWidget#Control{
+	border: 3px solid black;
+	background-color: grey;
+ }
+ 
+ QLabel#Control{
+	border: 0px;
+	color: black;
+	font-family: "BankGothic Md BT";
+	font-size: 15px ;
+ }
+
+
+
+/*------Styles pour les barres de vie et de déplacement------*/
+
+ QProgressBar {
      border: 2px solid black;
      border-radius: 1px;
      background-color: #c6c6c6;
  }
-  QProgressBar#Health::chunk {
+ 
+ QProgressBar#Health::chunk {
      background-color: #0f9c20;
  }
+
  QProgressBar#Deplacement::chunk {
      background-color: #ff6600;
-	 }
+ }
+
+
+/*------Style pour la jauge de puissance------*/
+
  QProgressBar#Tank {
      border: 1px solid black;
      border-radius: 1px;
      background: qlineargradient( x1:0 y1:1, x2:0 y2:0, stop:0 #1be100, stop:1 #ff0d00, stop:0.5 #ffff00);
  }
+ 
  QProgressBar#Tank::chunk {
      background-color: rgba(255,255,255,0%);
 	 border-top: 2px solid black;
  }
+ 
+/*------Style pour le label indiquant c'est au tour de qui------*/
+ 
  QLabel#tourParTour{
 	border: 3px solid white;
 	background-color: black;
@@ -31,35 +61,48 @@ QProgressBar {
 	font-size: 25px ;
 	font-weight: 900;
  }
- QWidget#CentralWidget{
- background: qlineargradient( x1:0 y1:1, x2:0 y2:0, stop:0 #27c5ec, stop:1 #273bec);
-
+ 
+/*------Background de la zone de jeu------*/
+ 
+ Interface {
+	background: qlineargradient( x1:0 y1:1, x2:0 y2:0, stop:0 #27c5ec, stop:1 #273bec);
  }
+ 
+/*Styles pour le HUD*/
+ 
  QWidget#HUD{
-	background: url(./Images/pattern.jpg) repeat;
+	background: url(./Ressources/Images/pattern.jpg) repeat;
  }
+ 
+/*------Style pour les différents types de munition------*/
+ 
  QRadioButton::indicator{
- width : 70 px;
- height : 70 px;
- border: 5 px
+	width : 70 px;
+	height : 70 px;
+	border: 5 px
  }
  
  QRadioButton#Munition1{
- image : url(./Images/default_ammo.png);
+	image : url(./Ressources/Images/default_ammo.png);
  }
+ 
  QRadioButton#Munition2{
- image : url(./Images/shotgun_ammo.png);
+	image : url(./Ressources/Images/shotgun_ammo.png);
  }
+ 
  QRadioButton#Munition3{
- image : url(./Images/explosive_ammo.png);
+	image : url(./Ressources/Images/explosive_ammo.png);
  }
+ 
  QRadioButton#Munition1::checked{
- image : url(./Images/default_ammo_selected.png);
+	image : url(./Ressources/Images/default_ammo_selected.png);
  }
+ 
  QRadioButton#Munition2::checked{
- image : url(./Images/shotgun_ammo_selected.png);
+	image : url(./Ressources/Images/shotgun_ammo_selected.png);
  }
+ 
  QRadioButton#Munition3::checked{
- image : url(./Images/explosive_ammo_selected.png);
+	image : url(./Ressources/Images/explosive_ammo_selected.png);
  }
  
