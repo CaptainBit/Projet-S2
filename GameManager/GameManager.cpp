@@ -38,7 +38,7 @@ void GameManager::changer_tour()	//refresh le nombre de pts de deplacement du jo
 	}
 	
 	joueur_actif->setPointsDeplacement(POINTS_DEPLACEMENT);			//A modifier en fonction de l implementation de la class joueur
-	
+	joueur_actif->setTypeProjectile(1);
 	changementTour();
 	tour = !tour;
 }
@@ -82,6 +82,15 @@ void GameManager::en_jeux(char choice)
 			
 			changer_tour();
 		}
+		break;
+	case '1':
+		joueur_actif->setTypeProjectile(1);
+		break;
+	case '2':
+		joueur_actif->setTypeProjectile(2);
+		break;
+	case '3':
+		joueur_actif->setTypeProjectile(3);
 		break;
 	default:
 		break;

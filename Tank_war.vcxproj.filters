@@ -68,9 +68,9 @@
     <CustomBuild Include="GameManager\Joueur.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="Munitions.h">
+    <CustomBuild Include="Munitions.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <ClInclude Include="Projectile\Physic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -104,6 +104,12 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_Joueur.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_Munitions.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_Munitions.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_Tank.cpp">

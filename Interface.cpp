@@ -11,9 +11,11 @@
 #include <QPainterPath>
 #include <QString>
 #include <QChar>
+#include <QFontDatabase>
 
 
 Interface::Interface() {
+	QFontDatabase::addApplicationFont("./ressources/Junior-Bold.otf");
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
 	setStyleSheet(qss.readAll());
@@ -26,7 +28,6 @@ Interface::Interface() {
 	zoneDeJeu= new QWidget();
 	disposition = new QVBoxLayout(centralWidget);
 	hud = new QGridLayout(barres);
-	QPalette palFond = palette();
 	QPalette palTank = palette();
 	tour = new QLabel();
 	tour->setObjectName("tourParTour");
@@ -123,9 +124,7 @@ Interface::Interface() {
 	tank1->setPalette(palTank);
 	tank2->setAutoFillBackground(true);
 	tank2->setPalette(palTank);
-	palFond.setColor(QPalette::Background, Qt::blue);
-	centralWidget->setAutoFillBackground(true);
-	centralWidget->setPalette(palFond);
+	centralWidget->setObjectName("CentralWidget");
 
 	//Initialisation du GameManager
 	gm = new GameManager(terrain);
@@ -144,9 +143,12 @@ Interface::Interface() {
 	connect(tank1, SIGNAL(moved()), terrain, SLOT(update()));
 	connect(tank2, SIGNAL(moved()), terrain, SLOT(update()));
 	connect(gm, SIGNAL(changementTour(string)), this, SLOT(changerTour(string)));
+	connect(joueur1, SIGNAL(selectAmmo(int)), munitionsPlayer1, SLOT(select(int)));
+	connect(joueur2, SIGNAL(selectAmmo(int)), munitionsPlayer2, SLOT(select(int)));
 	gm->start_game();
 	connect(gm, SIGNAL(changementTour()), tank1, SLOT(affichageJauge()));
 	connect(gm, SIGNAL(changementTour()), tank2, SLOT(affichageJauge()));
+	
 	
 	//Initialisation du centralWidget
 	disposition->setMargin(0);
@@ -163,4 +165,7 @@ void Interface::keyPressEvent(QKeyEvent* event) {
 }
 void Interface::changerTour(string texte) {
 	tour->setText(QString::fromStdString(texte));
+	if (texte == "JOUEUR 1")
+		tour->setStyleSheet("border: 5px solid #4e9a06");
+	else tour->setStyleSheet("border: 5px solid #cd002a");;
 }
