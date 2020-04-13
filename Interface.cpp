@@ -164,57 +164,7 @@ void Interface::changerTour(string texte) {
 	else tour->setStyleSheet("border: 5px solid #cd002a");;
 }
 
-<<<<<<< Updated upstream
-TankApp::TankApp(int &argc, char **argv)
-	:QApplication(argc, argv)
-{
-	mainWindow = new QMainWindow;
-	CentralWidget = new QWidget;
-
-	mainWindow->setFixedSize(1280, 720);
-	mainWindow->setWindowTitle("Tank War - P15");
-
-	setupMenu();
-	//setupGame();
-
-	exec();
-}
-
-TankApp::~TankApp() {
-	delete CentralWidget;
-	delete mainWindow;
-}
-
-void TankApp::setupMenu() {
-	menu = new Menu();
-
-	mainWindow->setCentralWidget(menu);
-
-	QPixmap bkgnd("./ressources/menu_tank.png");
-	bkgnd = bkgnd.scaled(mainWindow->size(), Qt::IgnoreAspectRatio);
-	QPalette palette;
-	palette.setBrush(QPalette::Window, bkgnd);
-
-	music = new QMediaPlayer;
-	music->setMedia(QUrl::fromLocalFile("ressources/play_2.wav"));
-	music->play();
-
-	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(play()));
-	connect(menu->exit_button, SIGNAL(clicked()), this, SLOT(quit()));
-	connect(menu->volumeSlider, SIGNAL(valueChanged(int)), music, SLOT(setVolume(int)));
-
-
-	mainWindow->setPalette(palette);
-	mainWindow->show();
-
-}
-
-void TankApp::setupGame() {
-	game = new Interface;
-
-	mainWindow->setCentralWidget(game);
-
-=======
+
 TankApp::TankApp(int &argc, char **argv)
 
 	:QApplication(argc, argv)
@@ -223,7 +173,6 @@ TankApp::TankApp(int &argc, char **argv)
 	
 
 	mainWindow = new QMainWindow;
->>>>>>> Stashed changes
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
 	mainWindow->setStyleSheet(qss.readAll());
@@ -342,7 +291,7 @@ Menu::Menu()
 
 	volumeSlider->setFixedWidth(100);
 	volumeSlider->setRange(0, 100);
-	volumeSlider->setValue(100);
+	volumeSlider->setValue(0);
 
 
 	//Set background image
