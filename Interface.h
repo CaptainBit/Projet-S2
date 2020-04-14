@@ -78,10 +78,6 @@ class TankApp : public QApplication
 public:
 	TankApp(int &argc, char **argv);
 	~TankApp();
-
-	
-	
-
 	QMainWindow* mainWindow;
 	QWidget* CentralWidget;
 	Menu *menu;

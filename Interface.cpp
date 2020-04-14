@@ -174,18 +174,14 @@ void Interface::paintEvent(QPaintEvent *)
 
 
 TankApp::TankApp(int &argc, char **argv)
-
 	:QApplication(argc, argv)
-
 {
 	
-
 	mainWindow = new QMainWindow;
 	QFile qss("style.qss");
 	qss.open(QFile::ReadOnly);
 	this->setStyleSheet(qss.readAll());
 	qss.close();
-
 
 	QStatusBar controlBar;
 	controlBar.setSizeGripEnabled(false);
@@ -199,14 +195,8 @@ TankApp::TankApp(int &argc, char **argv)
 	controlBar.addWidget(&controlWidget,1);
 	mainWindow->setStatusBar(&controlBar);
 	
-	
 	mainWindow->setFixedSize(LONGUEUR_FENETRE, HAUTEUR_FENETRE);
 	mainWindow->setWindowTitle("Tank War - P15");
-	
-
-
-	
-	
 
 	mainWindow->show();
 	setupMenu();
@@ -218,10 +208,7 @@ TankApp::TankApp(int &argc, char **argv)
 
 
 TankApp::~TankApp() {
-
-
 	delete mainWindow;
-
 }
 
 
@@ -230,7 +217,6 @@ void TankApp::setupMenu() {
 
 	menu = new Menu();
 	
-
 	mainWindow->setCentralWidget(menu);
 	music = new QMediaPlayer;
 
@@ -239,7 +225,6 @@ void TankApp::setupMenu() {
 	music->play();
 	
 	music->setVolume(0);
-
 
 	connect(menu->play_button, SIGNAL(clicked()), this, SLOT(setupGame()));
 
@@ -307,7 +292,7 @@ Menu::Menu()
 
 
 
-	mainLayout->addWidget(volumeSlider, 1, 0, Qt::AlignRight);
+	mainLayout->addWidget(volumeSlider, 1, 1, Qt::AlignRight);
 
 	mainLayout->addWidget(play_button, 2, 0, Qt::AlignCenter);
 
