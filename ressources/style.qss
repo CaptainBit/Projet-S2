@@ -4,7 +4,28 @@
 	background : url(./Ressources/Images/menu_tank.png);
  }
 
-
+ QPushButton#Jouer{
+ width : 120 px;
+	height : 70 px;
+	border: 5 px;
+	image : url(./Ressources/Images/jouer.png);
+ }
+ 
+ QPushButton#Jouer::hover{
+	image : url(./Ressources/Images/jouer_selected.png);
+ }
+ 
+ QPushButton#Sortir{
+	width : 120 px;
+	height : 70 px;
+	border: 5 px;
+	image : url(./Ressources/Images/Sortir.png);
+ }
+ 
+ QPushButton#Sortir::hover{
+	image : url(./Ressources/Images/Sortir_selected.png);
+ }
+ 
 /*------Style Instructions des controls------*/
 
  QWidget#Control{

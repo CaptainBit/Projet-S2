@@ -1,6 +1,6 @@
 #include "Terrain.h"
 
-#define LOWEST 50
+#define LOWEST 70
 Terrain::Terrain(int longueurTerrain, int hauteurMax, int hauteurFenetre, QWidget *parent) : QWidget(parent) {
 	m_longueurTerrain = longueurTerrain;
 	m_hauteurFenetre = hauteurFenetre;

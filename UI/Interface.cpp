@@ -39,7 +39,7 @@ Interface::Interface() {
 	//Initialisation de la zone de jeu
 	tank1 = new Tank(-1, zoneDeJeu);
 	tank2 = new Tank(1, zoneDeJeu);
-	terrain = new Terrain(LONGUEUR_FENETRE, (HAUTEUR_FENETRE * 1) / 5, (HAUTEUR_FENETRE * 4) / 5, zoneDeJeu);
+	terrain = new Terrain(LONGUEUR_FENETRE, (HAUTEUR_FENETRE * 2) / 5, (HAUTEUR_FENETRE * 4) / 5, zoneDeJeu);
 
 	//D�claration des progfress bar de la vie des joueurs et de leurs points de d�placements
 	health_p1 = new QProgressBar();
@@ -150,8 +150,7 @@ Interface::Interface() {
 
 }
 Interface::~Interface() {
-	delete joueur1;
-	delete joueur2;
+	//Joueur 1 et 2 sont delete dans le destructeur de GameManager
 	delete health_p1;
 	delete health_p2;
 	delete deplacement_p1;
@@ -159,14 +158,14 @@ Interface::~Interface() {
 	delete tank1;
 	delete tank2;
 	delete terrain;
-	delete barres;
-	delete zoneDeJeu;
-	delete disposition;
-	delete hud;
-	delete gm;
 	delete munitionsPlayer1;
 	delete munitionsPlayer2;
 	delete tour;
+	delete hud;
+	delete barres;
+	delete zoneDeJeu;
+	delete gm;
+	delete disposition;
 }
 
 //Traitement des touches

@@ -10,6 +10,8 @@ Classe du menu du jeu
 #include <QSlider>
 #include <QStyleOption>
 #include <QPainter>
+#include <QHBoxLayout>
+#include <QLabel>
 
 class Menu : public QWidget
 {
@@ -22,6 +24,9 @@ public:
 	QPushButton* play_button;//Bouton de démarrage de la partie
 	QPushButton* exit_button;//Bouton de femeture du programme
 	QSlider* volumeSlider;//Slider modifiant le volume de la musique
+	QWidget *volume;//Widget contenant le slider et son label
+	QHBoxLayout *hbox;//layout du widget volume
+	QLabel *volumeLabel;//Label du volume
 	void paintEvent(QPaintEvent *);
 };
 
