@@ -53,7 +53,13 @@ void Joueur::setPointsDeplacement(int points)
 //Deplacer le tank(Positif vers la droite et negatif vers la gauche). Retourne s'il avait assez de point de deplacement
 bool Joueur::deplacer(int deplacement)
 {
-
+	
+	if (pointsDeplacement - abs(deplacement) >= 0 && position.x + deplacement>=0 && position.x + deplacement <= 79) {
+		pointsDeplacement -= abs(deplacement);
+		position.x += deplacement;
+		return 1;
+	}
+	return 0;
 }
 
 //Enleve le nombre de point de degat a la vie. Retourne si le tank est toujours en vie. 

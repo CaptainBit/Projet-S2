@@ -9,7 +9,7 @@
 #include "../Projectile/Projectile.h"
 #include "../Vec2.h"
 
-#define DEGAT_DEFAULT=10;
+#define DEGAT_DEFAULT 10;
 
 class Projectile {
 private:

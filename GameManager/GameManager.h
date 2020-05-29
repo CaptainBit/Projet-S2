@@ -5,39 +5,48 @@
 #ifndef PROJET_GAMEMANAGER_H
 #define PROJET_GAMEMANAGER_H
 
-#include "UI.h"
+//#include "UI.h"
 #include "../Projectile/Physic.h"
 #include "../Projectile/Projectile.h"
 #include "Joueur.h"
 #include "../Terrain/Terrain.h"
+#include "../UI/UI.h"
 
-#define DEFAULT_SIZE Vec2(10,10)
+#define DEFAULT_SIZE Vec2(93,1)
 
 class GameManager {
 
 private:
-	Terrain *terrain;
+	//Terrain *terrain;
 	Joueur *joueur_un;			// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
 	Joueur *joueur_deux;		// Passer en argument les coord de depart?? -- objet provenant de TraitementJour.h
-	UI ui;
+	//UI ui;
+
+	float angle_tire = 0;
+	float force_tire = 0;
+	bool inGame = true;
 	bool tour = true;
+	Joueur *joueur_actif;
+	Joueur *joueur_cible;
+	UI ui;
 	
 public:
 	GameManager();
-	GameManager(int hauteur, int largeur);
 	~GameManager();
 	void changer_tour();	//refresh le nombre de pts de deplacement du joueur actif
-	void refresh_frame();	//Afficher le UI avec les donnees a jour
 	
 	
 	//Methodes lies a la gestion d evenements:
-	void deplacer_joueur();
-	void tirer();			//Va probablement appeler set_angle et set_puissance de maniere consecutive
-	void set_angle();
-	void set_puissance();
+	void tirer();			//Va probablement appeler getAngle et getPuissance de maniere consecutive
+	void setAngle(float angle_tire);
+	void setPuissance(float force_tire);
+	float getAngle();
+	float getPuissance();
 
 	void start_game();
+	void en_jeux(char choice);
 	void end_game();
+	bool getStatus();
 
 };
 

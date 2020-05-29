@@ -7,6 +7,7 @@
 #define PROJET_JOUEUR_H
 #include "..\Projectile\Projectile.h"
 #include "../Vec2.h"
+#include <cstdlib>
 
 #define POINTS_DEPLACEMENT 10
 #define VIE_MAX  100
